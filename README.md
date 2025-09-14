@@ -77,14 +77,14 @@ $ mvn sonar:sonar -Dsonar.host.url=<SONARCUBE_HOST> -Dsonar.projectKey=tasklist 
 ```
 ![Sonar Scanner Analysis](docs/sonarcube.png)
 
-### Jankins Credentials 
-![Jankins Credentials](docs/jenkins-credentials.png)
+### Jenkins Credentials 
+![Jenkins Credentials](docs/jenkins-credentials.png)
 
 ### Jankins Pipeline
-![Jankins Pipeline](docs/jenkins-pipeline.png)
+![Jenkins Pipeline](docs/jenkins-pipeline.png)
 
-### Jankins Pipeline Output 
-![Jankins Pipeline Output](docs/jenkins-console-output.txt)
+### Jenkins Pipeline Output 
+![Jenkins Pipeline Output](docs/jenkins-console-output.txt)
 
 ### When is @SneakyThrows Acceptable?
 
