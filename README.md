@@ -80,7 +80,7 @@ $ mvn sonar:sonar -Dsonar.host.url=<SONARCUBE_HOST> -Dsonar.projectKey=tasklist 
 ### Jenkins Credentials 
 ![Jenkins Credentials](docs/jenkins-credentials.png)
 
-### Jankins Pipeline
+### Jenkins Pipeline
 ![Jenkins Pipeline](docs/jenkins-pipeline.png)
 
 ### Jenkins Pipeline Output 
