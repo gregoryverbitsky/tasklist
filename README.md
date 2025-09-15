@@ -36,7 +36,7 @@ Task can have images.
 To run this application you need to create `.env` file in root directory with
 next environments:
 
-- `HOST` - host of Postgresql database
+- `POSTGRES_HOST` - host of Postgresql database
 - `POSTGRES_USERNAME` - username for Postgresql database
 - `POSTGRES_PASSWORD` - password for Postgresql database
 - `POSTGRES_DATABASE` - name of Postgresql database
@@ -82,6 +82,9 @@ $ mvn sonar:sonar -Dsonar.host.url=<SONARCUBE_HOST> -Dsonar.projectKey=tasklist 
 
 ### Jenkins Pipeline
 ![Jenkins Pipeline](docs/jenkins-pipeline.png)
+
+### Jenkins Stage View
+![Jenkins Stage View](docs/jenkins-stage-view.png)
 
 ### Jenkins Pipeline Output 
 ![Jenkins Pipeline Output](docs/jenkins-console-output.txt)
