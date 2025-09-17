@@ -6,6 +6,7 @@ import de.demo.tasklist.domain.exception.ImageUploadException;
 import de.demo.tasklist.domain.exception.ResourceNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
+@Slf4j
 public class ControllerAdvice {
 
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -97,7 +99,7 @@ public class ControllerAdvice {
     public ExceptionBody handleException(
             final Exception e
     ) {
-        e.printStackTrace();
+        log.error(e.getMessage(), e);
         return new ExceptionBody("Internal error.");
     }
 

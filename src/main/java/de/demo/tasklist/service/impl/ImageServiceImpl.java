@@ -8,13 +8,14 @@ import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.CheckForNull;
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,7 +27,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public String upload(
-            @CheckForNull final TaskImage image
+            @NotNull final TaskImage image
     ) {
         try {
             createBucket();
@@ -72,9 +73,12 @@ public class ImageServiceImpl implements ImageService {
     private String getExtension(
             final MultipartFile file
     ) {
-        return file.getOriginalFilename()
-                .substring(file.getOriginalFilename()
-                        .lastIndexOf(".") + 1);
+        String filename = Optional.ofNullable(file.getOriginalFilename())
+                .orElseThrow(() ->
+                new ImageUploadException("Image must have name.")
+        );
+        return filename
+                .substring(filename.lastIndexOf(".") + 1);
     }
 
     @SneakyThrows

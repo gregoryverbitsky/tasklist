@@ -67,7 +67,7 @@ spec:
     sh ('ls -a')
     sh ('java -version')
     sh ('mvn -v')
-    sh ('mvn clean install sonar:sonar -s ${MVN_SETTINGS_PATH} -f pom.xml -Dsonar.projectKey=${SERVICE} -Dsonar.login=${SONAR_TOKEN}')
+    sh ('mvn clean install sonar:sonar -s ${MVN_SETTINGS_PATH} -f pom.xml -Dsonar.projectKey=${SERVICE} -Dsonar.token=${SONAR_TOKEN}')
                     }
                 }
             }

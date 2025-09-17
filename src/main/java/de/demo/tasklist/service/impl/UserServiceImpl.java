@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
     public User update(
             final User user
     ) {
-        User existing = this.getById(user.getId());
+        User existing = getById(user.getId());
         existing.setName(user.getName());
         user.setUsername(user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));

@@ -73,7 +73,9 @@ mvn jacoco:report
 
 ### Execute Sonar Scanner and Analysis Results
 ```
-$ mvn sonar:sonar -Dsonar.host.url=<SONARCUBE_HOST> -Dsonar.projectKey=tasklist -Dsonar.login=<SONARCUBE_TOKEN>
+$ mvn sonar:sonar -Dsonar.host.url=<SONARCUBE_HOST> -Dsonar.projectKey=tasklist -Dsonar.token=<SONARCUBE_TOKEN>
+$ mvn clean install sonar:sonar -Dsonar.projectKey=tasllist -Dsonar.token=squ_59843cf6f10e63d5d44085a32d6835ef6c83e5fb
+
 ```
 ![Sonar Scanner Analysis](docs/sonarcube.png)
 

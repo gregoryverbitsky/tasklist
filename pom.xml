@@ -17,19 +17,18 @@
 
     <properties>
         <java.version>21</java.version>
-        <lombok.version>1.18.32</lombok.version>
+        <lombok.version>1.18.38</lombok.version>
         <postgresql.version>42.7.3</postgresql.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <jjwt.version>0.12.5</jjwt.version>
-        <liquibase.version>4.27.0</liquibase.version>
-        <springdoc.version>2.5.0</springdoc.version>
-        <preliquibase.version>1.5.0</preliquibase.version>
-        <minio.version>8.5.10</minio.version>
-        <xml-format.version>3.3.1</xml-format.version>
-        <checkstyle.version>3.3.1</checkstyle.version>
-        <junit-jupiter.version>5.10.2</junit-jupiter.version>
-        <mockito.version>5.11.0</mockito.version>
-        <jacoco.version>0.8.12</jacoco.version>
+        <jjwt.version>0.12.6</jjwt.version>
+        <liquibase.version>4.31.1</liquibase.version>
+        <springdoc.version>2.8.9</springdoc.version>
+        <minio.version>8.5.17</minio.version>
+        <xml-format.version>4.1.0</xml-format.version>
+        <checkstyle.version>3.6.0</checkstyle.version>
+        <junit-jupiter.version>5.12.2</junit-jupiter.version>
+        <mockito.version>5.17.0</mockito.version>
+        <jacoco.version>0.8.13</jacoco.version>
     </properties>
 
     <dependencies>
@@ -106,7 +105,7 @@
         <dependency>
             <groupId>org.liquibase.ext</groupId>
             <artifactId>liquibase-hibernate6</artifactId>
-            <version>4.27.0</version>
+            <version>${liquibase.version}</version>
         </dependency>
 
         <dependency>

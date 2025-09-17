@@ -6,11 +6,13 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
 @AllArgsConstructor
+@Slf4j
 public class JwtTokenFilter extends GenericFilterBean {
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -38,6 +40,7 @@ public class JwtTokenFilter extends GenericFilterBean {
                 }
             }
         } catch (Exception ignored) {
+            log.error(ignored.getMessage(), ignored);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

@@ -123,7 +123,7 @@ public class TaskServiceImplTest {
                 task.getDescription(),
                 testTask.getDescription()
         );
-        Assertions.assertEquals(testTask.getStatus(), Status.TODO);
+        Assertions.assertEquals(Status.TODO, testTask.getStatus());
     }
 
     @Test

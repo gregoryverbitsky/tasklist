@@ -65,7 +65,7 @@ public class TaskServiceImpl implements TaskService {
     public Task update(
             final Task task
     ) {
-        Task existing = this.getById(task.getId());
+        Task existing = getById(task.getId());
         if (task.getStatus() == null) {
             existing.setStatus(Status.TODO);
         } else {
