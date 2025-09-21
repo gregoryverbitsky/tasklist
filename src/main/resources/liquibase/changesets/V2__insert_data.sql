@@ -1,7 +1,7 @@
 insert into users (name, username, password)
-values ('admin', 'admin', '$2a$10$gW8OCDNYOrmAn7.NCktjbe3fYGfM816OeVMtGKzmHe1KAJdE5j2k6'),
-       ('test2test', 'test2test', '$2a$10$UKvzQOxwwaJJT5IbT.0eQ.aFFNnnFrvD8I44I8pIN0Hh3gnHPawse'),
-       ('test4test', 'test4test', '$2a$10$6EsjC/I9/nDld9bAYyvoX.jBeSTL5ejDCGLnjpTlbNN0Ct7a6gLda');
+values ('admin', 'admin@gmail.com', '$2a$10$CNXAPAQTbyrS.OmxivDDMu.7HpJAyWxCo63KzVpUoTUqSVdNH9vvu'),
+       ('test2test', 'test2test@gmail.com', '$2a$10$UKvzQOxwwaJJT5IbT.0eQ.aFFNnnFrvD8I44I8pIN0Hh3gnHPawse'),
+       ('test4test', 'test4test@gmail.com', '$2a$10$6EsjC/I9/nDld9bAYyvoX.jBeSTL5ejDCGLnjpTlbNN0Ct7a6gLda');
 
 insert into tasks (title, description, status, expiration_date)
 values ('Buy cheese', null, 'TODO', '2025-10-29 12:00:00'),

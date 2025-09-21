@@ -1,9 +1,10 @@
 package de.demo.tasklist.service.props;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Component
 @Getter
@@ -15,5 +16,4 @@ public class MinioProperties {
     private String url;
     private String accessKey;
     private String secretKey;
-
 }

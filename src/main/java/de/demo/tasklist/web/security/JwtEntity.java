@@ -1,12 +1,13 @@
 package de.demo.tasklist.web.security;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.Collection;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -38,5 +39,4 @@ public class JwtEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }

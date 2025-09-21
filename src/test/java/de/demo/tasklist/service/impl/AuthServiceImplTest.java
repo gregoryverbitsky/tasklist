@@ -1,16 +1,8 @@
-package com.example.tasklist.service.impl;
+package de.demo.tasklist.service.impl;
 
-import com.example.tasklist.config.TestConfig;
-import de.demo.tasklist.domain.exception.ResourceNotFoundException;
-import de.demo.tasklist.domain.user.Role;
-import de.demo.tasklist.domain.user.User;
-import de.demo.tasklist.repository.TaskRepository;
-import de.demo.tasklist.repository.UserRepository;
-import de.demo.tasklist.web.dto.auth.JwtRequest;
-import de.demo.tasklist.web.dto.auth.JwtResponse;
-import de.demo.tasklist.web.security.JwtTokenProvider;
-import de.demo.tasklist.service.impl.AuthServiceImpl;
-import de.demo.tasklist.service.impl.UserServiceImpl;
+import java.util.Collections;
+import java.util.Set;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,32 +16,40 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Collections;
-import java.util.Set;
+import de.demo.tasklist.config.TestConfig;
+import de.demo.tasklist.domain.exception.ResourceNotFoundException;
+import de.demo.tasklist.domain.user.Role;
+import de.demo.tasklist.domain.user.User;
+import de.demo.tasklist.repository.TaskRepository;
+import de.demo.tasklist.repository.UserRepository;
+import de.demo.tasklist.service.AuthService;
+import de.demo.tasklist.web.dto.auth.JwtRequest;
+import de.demo.tasklist.web.dto.auth.JwtResponse;
+import de.demo.tasklist.web.security.JwtTokenProvider;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 @Import(TestConfig.class)
 @ExtendWith(MockitoExtension.class)
-public class AuthServiceImplTest {
+class AuthServiceImplTest {
 
-      @MockitoBean
+    @MockitoBean
     private AuthenticationManager authenticationManager;
 
-      @MockitoBean
+    @MockitoBean
     private UserServiceImpl userService;
 
-      @MockitoBean
+    @MockitoBean
     private UserRepository userRepository;
 
-      @MockitoBean
+    @MockitoBean
     private TaskRepository taskRepository;
 
-      @MockitoBean
+    @MockitoBean
     private JwtTokenProvider tokenProvider;
 
     @Autowired
-    private AuthServiceImpl authService;
+    private AuthService authService;
 
     @Test
     void login() {
@@ -66,19 +66,12 @@ public class AuthServiceImplTest {
         user.setId(userId);
         user.setUsername(username);
         user.setRoles(roles);
-        Mockito.when(userService.getByUsername(username))
-                .thenReturn(user);
-        Mockito.when(tokenProvider.createAccessToken(userId, username, roles))
-                .thenReturn(accessToken);
-        Mockito.when(tokenProvider.createRefreshToken(userId, username))
-                .thenReturn(refreshToken);
-        JwtResponse response = authService.login(request);
-        Mockito.verify(authenticationManager)
-                .authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                request.getUsername(),
-                                request.getPassword())
-                );
+        Mockito.when(this.userService.getByUsername(username)).thenReturn(user);
+        Mockito.when(this.tokenProvider.createAccessToken(userId, username, roles)).thenReturn(accessToken);
+        Mockito.when(this.tokenProvider.createRefreshToken(userId, username)).thenReturn(refreshToken);
+        JwtResponse response = this.authService.login(request);
+        Mockito.verify(this.authenticationManager)
+                .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         Assertions.assertEquals(response.getUsername(), username);
         Assertions.assertEquals(response.getId(), userId);
         Assertions.assertNotNull(response.getAccessToken());
@@ -94,11 +87,9 @@ public class AuthServiceImplTest {
         request.setPassword(password);
         User user = new User();
         user.setUsername(username);
-        Mockito.when(userService.getByUsername(username))
-                .thenThrow(ResourceNotFoundException.class);
-        Mockito.verifyNoInteractions(tokenProvider);
-        Assertions.assertThrows(ResourceNotFoundException.class,
-                () -> authService.login(request));
+        Mockito.when(this.userService.getByUsername(username)).thenThrow(ResourceNotFoundException.class);
+        Mockito.verifyNoInteractions(this.tokenProvider);
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> this.authService.login(request));
     }
 
     @Test
@@ -109,11 +100,9 @@ public class AuthServiceImplTest {
         JwtResponse response = new JwtResponse();
         response.setAccessToken(accessToken);
         response.setRefreshToken(newRefreshToken);
-        Mockito.when(tokenProvider.refreshUserTokens(refreshToken))
-                .thenReturn(response);
-        JwtResponse testResponse = authService.refresh(refreshToken);
-        Mockito.verify(tokenProvider).refreshUserTokens(refreshToken);
+        Mockito.when(this.tokenProvider.refreshUserTokens(refreshToken)).thenReturn(response);
+        JwtResponse testResponse = this.authService.refresh(refreshToken);
+        Mockito.verify(this.tokenProvider).refreshUserTokens(refreshToken);
         Assertions.assertEquals(testResponse, response);
     }
-
 }

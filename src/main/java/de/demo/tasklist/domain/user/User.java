@@ -1,6 +1,9 @@
 package de.demo.tasklist.domain.user;
 
-import de.demo.tasklist.domain.task.Task;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
+
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -16,12 +19,11 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
+import de.demo.tasklist.domain.task.Task;
 
 @Entity
 @Table(name = "users")
@@ -49,5 +51,4 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(inverseJoinColumns = @JoinColumn(name = "task_id"))
     private List<Task> tasks;
-
 }

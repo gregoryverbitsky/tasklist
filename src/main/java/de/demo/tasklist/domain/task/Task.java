@@ -1,5 +1,9 @@
 package de.demo.tasklist.domain.task;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -11,12 +15,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "tasks")
@@ -40,5 +41,4 @@ public class Task implements Serializable {
     @CollectionTable(name = "tasks_images")
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> images;
-
 }

@@ -1,13 +1,10 @@
-package com.example.tasklist.service.impl;
+package de.demo.tasklist.service.impl;
 
-import com.example.tasklist.config.TestConfig;
-import de.demo.tasklist.domain.exception.ResourceNotFoundException;
-import de.demo.tasklist.domain.task.Status;
-import de.demo.tasklist.domain.task.Task;
-import de.demo.tasklist.domain.task.TaskImage;
-import de.demo.tasklist.repository.TaskRepository;
-import de.demo.tasklist.service.ImageService;
-import de.demo.tasklist.service.impl.TaskServiceImpl;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,21 +16,24 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import de.demo.tasklist.config.TestConfig;
+import de.demo.tasklist.domain.exception.ResourceNotFoundException;
+import de.demo.tasklist.domain.task.Status;
+import de.demo.tasklist.domain.task.Task;
+import de.demo.tasklist.domain.task.TaskImage;
+import de.demo.tasklist.repository.TaskRepository;
+import de.demo.tasklist.service.ImageService;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 @Import(TestConfig.class)
 @ExtendWith(MockitoExtension.class)
-public class TaskServiceImplTest {
+class TaskServiceImplTest {
 
-      @MockitoBean
+    @MockitoBean
     private TaskRepository taskRepository;
 
-      @MockitoBean
+    @MockitoBean
     private ImageService imageService;
 
     @Autowired
@@ -44,21 +44,18 @@ public class TaskServiceImplTest {
         Long id = 1L;
         Task task = new Task();
         task.setId(id);
-        Mockito.when(taskRepository.findById(id))
-                .thenReturn(Optional.of(task));
-        Task testTask = taskService.getById(id);
-        Mockito.verify(taskRepository).findById(id);
+        Mockito.when(this.taskRepository.findById(id)).thenReturn(Optional.of(task));
+        Task testTask = this.taskService.getById(id);
+        Mockito.verify(this.taskRepository).findById(id);
         Assertions.assertEquals(task, testTask);
     }
 
     @Test
     void getByNotExistingId() {
         Long id = 1L;
-        Mockito.when(taskRepository.findById(id))
-                .thenReturn(Optional.empty());
-        Assertions.assertThrows(ResourceNotFoundException.class,
-                () -> taskService.getById(id));
-        Mockito.verify(taskRepository).findById(id);
+        Mockito.when(this.taskRepository.findById(id)).thenReturn(Optional.empty());
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> this.taskService.getById(id));
+        Mockito.verify(this.taskRepository).findById(id);
     }
 
     @Test
@@ -68,10 +65,9 @@ public class TaskServiceImplTest {
         for (int i = 0; i < 5; i++) {
             tasks.add(new Task());
         }
-        Mockito.when(taskRepository.findAllByUserId(userId))
-                .thenReturn(tasks);
-        List<Task> testTasks = taskService.getAllByUserId(userId);
-        Mockito.verify(taskRepository).findAllByUserId(userId);
+        Mockito.when(this.taskRepository.findAllByUserId(userId)).thenReturn(tasks);
+        List<Task> testTasks = this.taskService.getAllByUserId(userId);
+        Mockito.verify(this.taskRepository).findAllByUserId(userId);
         Assertions.assertEquals(tasks, testTasks);
     }
 
@@ -82,11 +78,9 @@ public class TaskServiceImplTest {
         for (int i = 0; i < 5; i++) {
             tasks.add(new Task());
         }
-        Mockito.when(taskRepository.findAllSoonTasks(Mockito.any(), Mockito.any()))
-                .thenReturn(tasks);
-        List<Task> testTasks = taskService.getAllSoonTasks(duration);
-        Mockito.verify(taskRepository)
-                .findAllSoonTasks(Mockito.any(), Mockito.any());
+        Mockito.when(this.taskRepository.findAllSoonTasks(Mockito.any(), Mockito.any())).thenReturn(tasks);
+        List<Task> testTasks = this.taskService.getAllSoonTasks(duration);
+        Mockito.verify(this.taskRepository).findAllSoonTasks(Mockito.any(), Mockito.any());
         Assertions.assertEquals(tasks, testTasks);
     }
 
@@ -96,16 +90,12 @@ public class TaskServiceImplTest {
         Task task = new Task();
         task.setId(id);
         task.setStatus(Status.DONE);
-        Mockito.when(taskRepository.findById(task.getId()))
-                .thenReturn(Optional.of(task));
-        Task testTask = taskService.update(task);
-        Mockito.verify(taskRepository).save(task);
+        Mockito.when(this.taskRepository.findById(task.getId())).thenReturn(Optional.of(task));
+        Task testTask = this.taskService.update(task);
+        Mockito.verify(this.taskRepository).save(task);
         Assertions.assertEquals(task, testTask);
         Assertions.assertEquals(task.getTitle(), testTask.getTitle());
-        Assertions.assertEquals(
-                task.getDescription(),
-                testTask.getDescription()
-        );
+        Assertions.assertEquals(task.getDescription(), testTask.getDescription());
         Assertions.assertEquals(task.getStatus(), testTask.getStatus());
     }
 
@@ -114,15 +104,11 @@ public class TaskServiceImplTest {
         Long id = 1L;
         Task task = new Task();
         task.setId(id);
-        Mockito.when(taskRepository.findById(task.getId()))
-                .thenReturn(Optional.of(task));
+        Mockito.when(taskRepository.findById(task.getId())).thenReturn(Optional.of(task));
         Task testTask = taskService.update(task);
         Mockito.verify(taskRepository).save(task);
         Assertions.assertEquals(task.getTitle(), testTask.getTitle());
-        Assertions.assertEquals(
-                task.getDescription(),
-                testTask.getDescription()
-        );
+        Assertions.assertEquals(task.getDescription(), testTask.getDescription());
         Assertions.assertEquals(Status.TODO, testTask.getStatus());
     }
 
@@ -132,11 +118,10 @@ public class TaskServiceImplTest {
         Long taskId = 1L;
         Task task = new Task();
         Mockito.doAnswer(invocation -> {
-                    Task savedTask = invocation.getArgument(0);
-                    savedTask.setId(taskId);
-                    return savedTask;
-                })
-                .when(taskRepository).save(task);
+            Task savedTask = invocation.getArgument(0);
+            savedTask.setId(taskId);
+            return savedTask;
+        }).when(taskRepository).save(task);
         Task testTask = taskService.create(task, userId);
         Mockito.verify(taskRepository).save(task);
         Assertions.assertNotNull(testTask.getId());
@@ -155,10 +140,8 @@ public class TaskServiceImplTest {
         Long id = 1L;
         String imageName = "imageName";
         TaskImage taskImage = new TaskImage();
-        Mockito.when(imageService.upload(taskImage))
-                .thenReturn(imageName);
+        Mockito.when(imageService.upload(taskImage)).thenReturn(imageName);
         taskService.uploadImage(id, taskImage);
         Mockito.verify(taskRepository).addImage(id, imageName);
     }
-
 }

@@ -37,10 +37,14 @@ To run this application you need to create `.env` file in root directory with
 next environments:
 
 - `POSTGRES_HOST` - host of Postgresql database
+- `POSTGRES_PORT` - port of Postgresql database
 - `POSTGRES_USERNAME` - username for Postgresql database
 - `POSTGRES_PASSWORD` - password for Postgresql database
 - `POSTGRES_DATABASE` - name of Postgresql database
 - `POSTGRES_SCHEMA` - name of Postgresql schema
+- `PGADMIN_DEFAULT_EMAIL` - username for PG Admin
+- `PGADMIN_DEFAULT_PASSWORD` - password for PG Admin
+- `PGADMIN_PORT` - port for PG Admin
 - `REDIS_HOST` - host of Redis instance
 - `REDIS_PASSWORD` - password for Redis
 - `JWT_SECRET` - secret string for JWT tokens
@@ -64,12 +68,18 @@ To start the application and Redis, Postgresql, MinIO stack:
 $ mvn clean install
 $ docker compose up -d
 $ mvn spring-boot:run
+```
+
+### Stop and remove containers, networks and remove volumes
+```bash
 $ docker compose down -v
 ```
 
+### Java code format violations:
+```bash
+$ mvn spotless:apply
 ```
-mvn jacoco:report
-```
+
 
 ### Execute Sonar Scanner and Analysis Results
 ```
@@ -89,7 +99,15 @@ $ mvn clean install sonar:sonar -Dsonar.projectKey=tasllist -Dsonar.token=squ_59
 ![Jenkins Stage View](docs/jenkins-stage-view.png)
 
 ### Jenkins Pipeline Output 
-![Jenkins Pipeline Output](docs/jenkins-console-output.txt)
+### ![Jenkins Pipeline Output](docs/jenkins-console-output.txt)
+
+### Portainer Stack Tasklist
+![Portainer Stack Tasklist](docs/portainerStackTasklist.png)
+
+### DbVisualiser Database Connection
+![DbVisualiser Database Connection](docs/DbVisualiserDbConn.png)
+
+
 
 ### When is @SneakyThrows Acceptable?
 

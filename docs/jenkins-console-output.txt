@@ -2205,23 +2205,23 @@ Audit done.
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] Running com.example.tasklist.service.impl.AuthServiceImplTest
-21:26:18.660 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.tasklist.service.impl.AuthServiceImplTest]: AuthServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[INFO] Running impl.service.de.demo.tasklist.AuthServiceImplTest
+21:26:18.660 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [impl.service.de.demo.tasklist.AuthServiceImplTest]: AuthServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.7/byte-buddy-agent-1.17.7.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
 WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
 WARNING: Dynamic loading of agents will be disallowed by default in a future release
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.428 s -- in com.example.tasklist.service.impl.AuthServiceImplTest
-[INFO] Running com.example.tasklist.service.impl.UserServiceImplTest
-21:26:21.867 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.tasklist.service.impl.UserServiceImplTest]: UserServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.212 s -- in com.example.tasklist.service.impl.UserServiceImplTest
-[INFO] Running com.example.tasklist.service.impl.MailServiceImplTest
-21:26:22.083 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.tasklist.service.impl.MailServiceImplTest]: MailServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.323 s -- in com.example.tasklist.service.impl.MailServiceImplTest
-[INFO] Running com.example.tasklist.service.impl.TaskServiceImplTest
-21:26:22.409 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.tasklist.service.impl.TaskServiceImplTest]: TaskServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.115 s -- in com.example.tasklist.service.impl.TaskServiceImplTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.428 s -- in impl.service.de.demo.tasklist.AuthServiceImplTest
+[INFO] Running impl.service.de.demo.tasklist.UserServiceImplTest
+21:26:21.867 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [impl.service.de.demo.tasklist.UserServiceImplTest]: UserServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.212 s -- in impl.service.de.demo.tasklist.UserServiceImplTest
+[INFO] Running impl.service.de.demo.tasklist.MailServiceImplTest
+21:26:22.083 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [impl.service.de.demo.tasklist.MailServiceImplTest]: MailServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.323 s -- in impl.service.de.demo.tasklist.MailServiceImplTest
+[INFO] Running impl.service.de.demo.tasklist.TaskServiceImplTest
+21:26:22.409 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [impl.service.de.demo.tasklist.TaskServiceImplTest]: TaskServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.115 s -- in impl.service.de.demo.tasklist.TaskServiceImplTest
 [INFO] 
 [INFO] Results:
 [INFO] 

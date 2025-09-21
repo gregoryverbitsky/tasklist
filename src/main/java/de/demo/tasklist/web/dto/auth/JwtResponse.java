@@ -1,6 +1,7 @@
 package de.demo.tasklist.web.dto.auth;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,5 +14,4 @@ public class JwtResponse {
     private String username;
     private String accessToken;
     private String refreshToken;
-
 }

@@ -12,19 +12,14 @@ spring:
       port: ${REDIS_PORT}
       password: ${REDIS_PASSWORD}
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST}:5434/${POSTGRES_DATABASE} #?currentSchema=${POSTGRES_SCHEMA}
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
-  h2.console:
-    enabled: true
-    settings:
-      trace: false
-      web-allow-others: false
   liquibase:
     change-log: classpath:liquibase/db.changelog.yaml
     enabled: true
-    #default-schema: tasklist
+    default-schema: ${POSTGRES_SCHEMA}
   mail:
     host: ${SPRING_MAIL_HOST}
     port: ${SPRING_MAIL_PORT}
