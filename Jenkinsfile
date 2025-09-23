@@ -22,6 +22,9 @@ spec:
     command:
     - cat
     tty: true
+    volumeMounts:
+    - name: maven
+      mountPath: /root/.m2/repository
   - name: docker
     image: docker:24.0.6-git
     imagePullPolicy: IfNotPresent
@@ -38,6 +41,9 @@ spec:
     - cat
     tty: true
   volumes:
+  - name: maven
+    persistentVolumeClaim:
+      claimName: maven-repo-storage
   - name: docker
     hostPath:
       path: /var/run/docker.sock
@@ -64,7 +70,7 @@ spec:
     sh ('ls -a')
     sh ('java -version')
     sh ('mvn -v')
-    sh ('mvn clean package')
+    sh ('mvn clean package -s ${MVN_SETTINGS_PATH} -f pom.xml')
                         }
                     }
                 }
