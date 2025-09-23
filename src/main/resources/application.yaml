@@ -55,4 +55,4 @@ logging:
     #sun.net: TRACE
     org.springframework.security: INFO
     org.apache.http: ERROR
-    com.example.tasklist: DEBUG
+    de.demo.tasklist: DEBUG

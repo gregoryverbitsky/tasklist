@@ -53,21 +53,31 @@ spec:
                             configFile(fileId: 'MVN-SETTINGS-XML', 'targetLocation': MVN_SETTINGS_PATH)
                     ]) {
                     }
-                    sh ('ls')
+    sh ('ls')
                 }
             }
         }
-        stage('maven & sonar') {
-            steps {
-                container('maven') {
-                    withCredentials([
-                            string(credentialsId: 'sonar-jenkins-token', variable: 'SONAR_TOKEN')
-                    ]) {
+        stage('maven') {
+                    steps {
+                        container('maven') {
     sh ('pwd')
     sh ('ls -a')
     sh ('java -version')
     sh ('mvn -v')
-    sh ('mvn clean install sonar:sonar -s ${MVN_SETTINGS_PATH} -f pom.xml -Dsonar.projectKey=${SERVICE} -Dsonar.token=${SONAR_TOKEN}')
+    sh ('mvn clean package')
+                        }
+                    }
+                }
+        stage('sonar') {
+            steps {
+                container('maven') {
+                    withCredentials([
+                            string(credentialsId: 'sonar-jenkins-token', variable: 'SONAR_TOKEN') ]) {
+    sh ('pwd')
+    sh ('ls -a')
+    sh ('java -version')
+    sh ('mvn -v')
+    sh ('mvn sonar:sonar -s ${MVN_SETTINGS_PATH} -f pom.xml -Dsonar.projectKey=${SERVICE} -Dsonar.token=${SONAR_TOKEN}')
                     }
                 }
             }
@@ -77,9 +87,8 @@ spec:
                 container('docker') {
                     withCredentials([usernamePassword(credentialsId: "REGISTRY_CREDENTIALS",
                                     usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PASS')]) {
-                        sh """
-            docker info
-            echo ${REGISTRY_PASS} | docker login ${REGISTRY_URL} -u ${REGISTRY_USER} --password-stdin"""
+    sh ("docker info")
+    sh ("echo ${REGISTRY_PASS} | docker login ${REGISTRY_URL} -u ${REGISTRY_USER} --password-stdin")
                     }
                 }
             }
@@ -88,8 +97,8 @@ spec:
             steps {
                 container('helm-kubectl') {
                     withCredentials([file(credentialsId: "KUBECONFIG", variable: 'KUBECONFIG')]) {
-                        sh 'helm version'
-                        sh 'kubectl version'
+    sh ('helm version')
+    sh ('kubectl version')
                     }
                 }
             }
