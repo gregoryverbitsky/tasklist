@@ -66,13 +66,13 @@ You can use example `.env.example` file with some predefined environments.
 To start the application and Redis, Postgresql, MinIO, Smtp4Dev stack:
 ```bash
 $ mvn clean install
-$ docker compose -f docker-compose-local.yaml  up -d
+$ docker compose --profile local up -d
 $ mvn spring-boot:run
 ```
 
 ### Stop and remove containers, networks and remove volumes
 ```bash
-$ docker compose -f docker-compose-local.yaml down -v
+$ docker compose --profile local down -v
 ```
 
 ### Fixing code style errors with Spotless and Maven
@@ -84,12 +84,12 @@ $ mvn spotless:apply
 To build the application Docker Container and start all in one the Tasklist, Redis, Postgresql, MinIO, Smtp4Dev stack:
 ```bash
 $ mvn jib:dockerBuild
-$ docker compose -f docker-compose-all-in.yaml  up -d
+$ docker compose --profile all-in-one  up -d
 ```
 
 ### Stop all in one and remove containers, networks and volumes
 ```bash
-$ docker compose -f docker-compose-all-in.yaml down -v
+$ docker compose --profile all-in-one down -v
 ```
 
 
