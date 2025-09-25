@@ -63,21 +63,33 @@ You can use example `.env.example` file with some predefined environments.
 
 
 ### Run local with Docker Compose and Task List Application
-To start the application and Redis, Postgresql, MinIO stack:
+To start the application and Redis, Postgresql, MinIO, Smtp4Dev stack:
 ```bash
 $ mvn clean install
-$ docker compose up -d
+$ docker compose -f docker-compose-local.yaml  up -d
 $ mvn spring-boot:run
 ```
 
 ### Stop and remove containers, networks and remove volumes
 ```bash
-$ docker compose down -v
+$ docker compose -f docker-compose-local.yaml down -v
 ```
 
-### Java code format violations:
+### Fixing code style errors with Spotless and Maven
 ```bash
 $ mvn spotless:apply
+```
+
+### Run all in one with Docker Compose and Task List Application
+To build the application Docker Container and start all in one the Tasklist, Redis, Postgresql, MinIO, Smtp4Dev stack:
+```bash
+$ mvn jib:dockerBuild
+$ docker compose -f docker-compose-all-in.yaml  up -d
+```
+
+### Stop all in one and remove containers, networks and volumes
+```bash
+$ docker compose -f docker-compose-all-in.yaml down -v
 ```
 
 

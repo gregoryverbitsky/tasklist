@@ -15,20 +15,20 @@ volumes:
     driver: local
 
 services:
-#  app-tasklist:
-#    build:
-#      context: .
-#    container_name: tasklist
-#    networks:
-#      - app-tasklist-network
-#    depends_on:
-#      - app-tasklist-db
-#      - app-tasklistminio
-#      - app-tasklist-redis
-#   env_file:
-#      - .env
-#    ports:
-#      - '${TASKLIST_PORT}:8080'
+  app-tasklist:
+    image: registry.stx/tasklist:0.0.1
+    container_name: app-tasklist
+    networks:
+      - app-tasklist-network
+    depends_on:
+      - app-tasklist-db
+      - app-tasklist-minio
+      - app-tasklist-redis
+      - app-tasklist-smtp4dev
+    env_file:
+      - .env
+    ports:
+      - '${TASKLIST_PORT}:8086'
 
   app-tasklist-db:
     image: postgres:17-alpine3.22
