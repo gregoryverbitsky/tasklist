@@ -110,7 +110,6 @@ $ mvn clean install sonar:sonar -Dsonar.projectKey=tasllist -Dsonar.token=squ_59
 ### Jenkins Stage View
 ![Jenkins Stage View](docs/jenkins-stage-view.png)
 
-### Jenkins Pipeline Output 
 ### ![Jenkins Pipeline Output](docs/jenkins-console-output.txt)
 
 ### Portainer Stack Tasklist

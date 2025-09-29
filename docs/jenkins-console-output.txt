@@ -4,42 +4,29 @@ Obtained Jenkinsfile from git http://gitlab-webservice-default.gitlab.svc.cluste
 [Pipeline] podTemplate
 [Pipeline] {
 [Pipeline] node
-Created Pod: kubernetes build/demo-tasklist-16-s0xwd-z4p48-1l3ch
-[PodInfo] build/demo-tasklist-16-s0xwd-z4p48-1l3ch
+Created Pod: kubernetes build/demo-tasklist-38-mzsb5-50594-k1mbb
+[PodInfo] build/demo-tasklist-38-mzsb5-50594-k1mbb
 	Container [docker] waiting [ContainerCreating] No message
 	Container [helm-kubectl] waiting [ContainerCreating] No message
 	Container [jnlp] waiting [ContainerCreating] No message
 	Container [maven] waiting [ContainerCreating] No message
-	Pod [Pending][ContainersNotReady] containers with unready status: [maven docker helm-kubectl jnlp]
-Still waiting to schedule task
-‘demo-tasklist-16-s0xwd-z4p48-1l3ch’ is offline
-[PodInfo] build/demo-tasklist-16-s0xwd-z4p48-1l3ch
-	Container [docker] waiting [ContainerCreating] No message
-	Container [helm-kubectl] waiting [ContainerCreating] No message
-	Container [jnlp] waiting [ContainerCreating] No message
-	Container [maven] waiting [ContainerCreating] No message
-	Pod [Pending][ContainersNotReady] containers with unready status: [maven docker helm-kubectl jnlp]
-[PodInfo] build/demo-tasklist-16-s0xwd-z4p48-1l3ch
-	Container [docker] waiting [ContainerCreating] No message
-	Container [helm-kubectl] waiting [ContainerCreating] No message
-	Container [jnlp] waiting [ContainerCreating] No message
-	Container [maven] waiting [ContainerCreating] No message
-	Pod [Pending][ContainersNotReady] containers with unready status: [maven docker helm-kubectl jnlp]
-Agent demo-tasklist-16-s0xwd-z4p48-1l3ch is provisioned from template demo-tasklist_16-s0xwd-z4p48
+	Container [trivy] waiting [ContainerCreating] No message
+	Pod [Pending][ContainersNotReady] containers with unready status: [maven docker trivy helm-kubectl jnlp]
+Agent demo-tasklist-38-mzsb5-50594-k1mbb is provisioned from template demo-tasklist_38-mzsb5-50594
 ---
 apiVersion: "v1"
 kind: "Pod"
 metadata:
   annotations:
-    kubernetes.jenkins.io/last-refresh: "1758714385503"
-    buildUrl: "http://jenkins.build.svc.cluster.local:8080/job/demo-tasklist/16/"
-    runUrl: "job/demo-tasklist/16/"
+    kubernetes.jenkins.io/last-refresh: "1759133474896"
+    buildUrl: "http://jenkins.build.svc.cluster.local:8080/job/demo-tasklist/38/"
+    runUrl: "job/demo-tasklist/38/"
   labels:
     jenkins/jenkins-jenkins-agent: "true"
-    jenkins/label-digest: "3b10628029a72ffc2c490102c3a54d7e092ab86b"
-    jenkins/label: "demo-tasklist_16-s0xwd"
+    jenkins/label-digest: "ef239e538d5b550f8dbcbdc5f33bd8a46b0d0bd5"
+    jenkins/label: "demo-tasklist_38-mzsb5"
     kubernetes.jenkins.io/controller: "http___jenkins_build_svc_cluster_local_8080x"
-  name: "demo-tasklist-16-s0xwd-z4p48-1l3ch"
+  name: "demo-tasklist-38-mzsb5-50594-k1mbb"
   namespace: "build"
 spec:
   containers:
@@ -69,6 +56,18 @@ spec:
       readOnly: false
   - command:
     - "cat"
+    image: "docker.stx/aquasec/trivy:0.66.0"
+    imagePullPolicy: "IfNotPresent"
+    name: "trivy"
+    tty: true
+    volumeMounts:
+    - mountPath: "/root/.trivy-cache"
+      name: "trivy"
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  - command:
+    - "cat"
     image: "docker.stx/alpine/k8s:1.24.16"
     imagePullPolicy: "IfNotPresent"
     name: "helm-kubectl"
@@ -83,11 +82,11 @@ spec:
     - name: "JENKINS_TUNNEL"
       value: "jenkins-agent.build.svc.cluster.local:50000"
     - name: "JENKINS_AGENT_NAME"
-      value: "demo-tasklist-16-s0xwd-z4p48-1l3ch"
+      value: "demo-tasklist-38-mzsb5-50594-k1mbb"
     - name: "REMOTING_OPTS"
       value: "-noReconnectAfter 1d"
     - name: "JENKINS_NAME"
-      value: "demo-tasklist-16-s0xwd-z4p48-1l3ch"
+      value: "demo-tasklist-38-mzsb5-50594-k1mbb"
     - name: "JENKINS_AGENT_WORKDIR"
       value: "/home/jenkins/agent"
     - name: "JENKINS_URL"
@@ -111,6 +110,9 @@ spec:
   - name: "maven"
     persistentVolumeClaim:
       claimName: "maven-repo-storage"
+  - name: "trivy"
+    persistentVolumeClaim:
+      claimName: "trivy-cache"
   - emptyDir:
       medium: ""
     name: "workspace-volume"
@@ -118,7 +120,7 @@ spec:
       path: "/var/run/docker.sock"
     name: "docker"
 
-Running on demo-tasklist-16-s0xwd-z4p48-1l3ch in /home/jenkins/agent/workspace/demo-tasklist
+Running on demo-tasklist-38-mzsb5-50594-k1mbb in /home/jenkins/agent/workspace/demo-tasklist
 [Pipeline] {
 [Pipeline] stage
 [Pipeline] { (Declarative: Checkout SCM)
@@ -128,20 +130,20 @@ using credential developWithPassword
 Cloning the remote Git repository
 Cloning repository http://gitlab-webservice-default.gitlab.svc.cluster.local:8181/demo/tasklist.git
  > git init /home/jenkins/agent/workspace/demo-tasklist # timeout=10
+Avoid second fetch
+Checking out Revision 3c95daf23ed425e612ad9543b1debae6a9589fc0 (refs/remotes/origin/spotless-maven-plugin)
+Commit message: "docker push"
 Fetching upstream changes from http://gitlab-webservice-default.gitlab.svc.cluster.local:8181/demo/tasklist.git
  > git --version # timeout=10
  > git --version # 'git version 2.39.5'
 using GIT_ASKPASS to set credentials developWithPassword
  > git fetch --tags --force --progress -- http://gitlab-webservice-default.gitlab.svc.cluster.local:8181/demo/tasklist.git +refs/heads/*:refs/remotes/origin/* # timeout=10
-Avoid second fetch
-Checking out Revision 58fc87073b69b41cbef30d00c2b6fea274393dd3 (refs/remotes/origin/spotless-maven-plugin)
-Commit message: "jenkins update"
  > git config remote.origin.url http://gitlab-webservice-default.gitlab.svc.cluster.local:8181/demo/tasklist.git # timeout=10
  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
  > git rev-parse refs/remotes/origin/spotless-maven-plugin^{commit} # timeout=10
  > git config core.sparsecheckout # timeout=10
- > git checkout -f 58fc87073b69b41cbef30d00c2b6fea274393dd3 # timeout=10
- > git rev-list --no-walk 0910a38413071b5eb031e60d9e60521abac0e2f9 # timeout=10
+ > git checkout -f 3c95daf23ed425e612ad9543b1debae6a9589fc0 # timeout=10
+ > git rev-list --no-walk 70c60086d92b771935f198df50adb5d32064af72 # timeout=10
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] withEnv
@@ -217,13 +219,13 @@ Apache Maven 3.9.11 (3e54c93a704957b63ee3494413a2b544fd3d825b)
 Maven home: /usr/share/maven
 Java version: 21.0.8, vendor: Eclipse Adoptium, runtime: /opt/java/openjdk
 Default locale: en_US, platform encoding: UTF-8
-OS name: "linux", version: "6.15.10-200.fc42.x86_64", arch: "amd64", family: "unix"
+OS name: "linux", version: "6.16.8-200.fc42.x86_64", arch: "amd64", family: "unix"
 [Pipeline] sh
 + mvn clean package -s maven-settings.xml -f pom.xml
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] --------------------------< de.demo:tasklist >--------------------------
-[INFO] Building tasklist 0.0.1-SNAPSHOT
+[INFO] Building tasklist 0.0.1
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
@@ -272,23 +274,23 @@ OS name: "linux", version: "6.15.10-200.fc42.x86_64", arch: "amd64", family: "un
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running de.demo.tasklist.service.impl.AuthServiceImplTest
-11:47:48.847 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.AuthServiceImplTest]: AuthServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:11:34.260 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.AuthServiceImplTest]: AuthServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
 Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.7/byte-buddy-agent-1.17.7.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
 WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
 WARNING: Dynamic loading of agents will be disallowed by default in a future release
-OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.260 s -- in de.demo.tasklist.service.impl.AuthServiceImplTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.499 s -- in de.demo.tasklist.service.impl.AuthServiceImplTest
 [INFO] Running de.demo.tasklist.service.impl.UserServiceImplTest
-11:47:51.910 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.UserServiceImplTest]: UserServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.180 s -- in de.demo.tasklist.service.impl.UserServiceImplTest
+08:11:37.561 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.UserServiceImplTest]: UserServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.200 s -- in de.demo.tasklist.service.impl.UserServiceImplTest
 [INFO] Running de.demo.tasklist.service.impl.MailServiceImplTest
-11:47:52.093 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.MailServiceImplTest]: MailServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.333 s -- in de.demo.tasklist.service.impl.MailServiceImplTest
+08:11:37.761 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.MailServiceImplTest]: MailServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.343 s -- in de.demo.tasklist.service.impl.MailServiceImplTest
 [INFO] Running de.demo.tasklist.service.impl.TaskServiceImplTest
-11:47:52.428 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.TaskServiceImplTest]: TaskServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.099 s -- in de.demo.tasklist.service.impl.TaskServiceImplTest
+08:11:38.109 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.TaskServiceImplTest]: TaskServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.116 s -- in de.demo.tasklist.service.impl.TaskServiceImplTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -302,16 +304,16 @@ OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader clas
 [INFO] Analyzed bundle 'tasklist' with 40 classes
 [INFO] 
 [INFO] --- jar:3.4.2:jar (default-jar) @ tasklist ---
-[INFO] Building jar: /home/jenkins/agent/workspace/demo-tasklist/target/tasklist-0.0.1-SNAPSHOT.jar
+[INFO] Building jar: /home/jenkins/agent/workspace/demo-tasklist/target/tasklist-0.0.1.jar
 [INFO] 
 [INFO] --- spring-boot:3.5.5:repackage (repackage) @ tasklist ---
-[INFO] Replacing main artifact /home/jenkins/agent/workspace/demo-tasklist/target/tasklist-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
-[INFO] The original artifact has been renamed to /home/jenkins/agent/workspace/demo-tasklist/target/tasklist-0.0.1-SNAPSHOT.jar.original
+[INFO] Replacing main artifact /home/jenkins/agent/workspace/demo-tasklist/target/tasklist-0.0.1.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /home/jenkins/agent/workspace/demo-tasklist/target/tasklist-0.0.1.jar.original
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  12.113 s
-[INFO] Finished at: 2025-09-24T11:47:53Z
+[INFO] Total time:  12.157 s
+[INFO] Finished at: 2025-09-29T08:11:39Z
 [INFO] ------------------------------------------------------------------------
 [Pipeline] }
 [Pipeline] // container
@@ -356,134 +358,134 @@ Apache Maven 3.9.11 (3e54c93a704957b63ee3494413a2b544fd3d825b)
 Maven home: /usr/share/maven
 Java version: 21.0.8, vendor: Eclipse Adoptium, runtime: /opt/java/openjdk
 Default locale: en_US, platform encoding: UTF-8
-OS name: "linux", version: "6.15.10-200.fc42.x86_64", arch: "amd64", family: "unix"
+OS name: "linux", version: "6.16.8-200.fc42.x86_64", arch: "amd64", family: "unix"
 [Pipeline] sh
-+ mvn sonar:sonar -s maven-settings.xml -f pom.xml '-Dsonar.projectKey=tasklist' '-Dsonar.token=****'
++ mvn sonar:sonar -s maven-settings.xml -f pom.xml '-Dsonar.projectKey=tasklist' '-Dsonar.projectName=tasklist' '-Dsonar.token=****'
 [INFO] Scanning for projects...
 [WARNING] The artifact org.codehaus.mojo:sonar-maven-plugin:jar:4.0.0.4121 has been relocated to org.sonarsource.scanner.maven:sonar-maven-plugin:jar:4.0.0.4121: SonarQube plugin was moved to SonarSource organisation
 [INFO] 
 [INFO] --------------------------< de.demo:tasklist >--------------------------
-[INFO] Building tasklist 0.0.1-SNAPSHOT
+[INFO] Building tasklist 0.0.1
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- sonar:4.0.0.4121:sonar (default-cli) @ tasklist ---
-[WARNING] 11:47:59.980 Using an unspecified version instead of an explicit plugin version may introduce breaking analysis changes at an unwanted time. It is highly recommended to use an explicit version, e.g. 'org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121'.
-[INFO] 11:47:59.988 Java 21.0.8 Eclipse Adoptium (64-bit)
-[INFO] 11:47:59.988 Linux 6.15.10-200.fc42.x86_64 (amd64)
-[INFO] 11:48:00.165 User cache: /root/.sonar/cache
-[INFO] 11:48:00.518 Communicating with SonarQube Server 25.8.0.112029
-[INFO] 11:48:00.538 Default locale: "en_US", source code encoding: "UTF-8"
-[INFO] 11:48:01.135 Load global settings
-[INFO] 11:48:01.212 Load global settings (done) | time=78ms
-[INFO] 11:48:01.232 Server id: A705BF94-AZk9AkQp47l5vLj4kDGE
-[INFO] 11:48:01.242 Loading required plugins
-[INFO] 11:48:01.243 Load plugins index
-[INFO] 11:48:01.277 Load plugins index (done) | time=34ms
-[INFO] 11:48:01.278 Load/download plugins
-[INFO] 11:48:01.431 Load/download plugins (done) | time=153ms
-[INFO] 11:48:01.727 Process project properties
-[INFO] 11:48:01.739 Process project properties (done) | time=12ms
-[INFO] 11:48:01.748 Project key: tasklist
-[INFO] 11:48:01.748 Base dir: /home/jenkins/agent/workspace/demo-tasklist
-[INFO] 11:48:01.748 Working dir: /home/jenkins/agent/workspace/demo-tasklist/target/sonar
-[INFO] 11:48:01.755 Load project settings for component key: 'tasklist'
-[INFO] 11:48:01.772 Load project settings for component key: 'tasklist' (done) | time=17ms
-[INFO] 11:48:01.794 Load quality profiles
-[INFO] 11:48:01.837 Load quality profiles (done) | time=43ms
-[INFO] 11:48:01.850 Auto-configuring with CI 'Jenkins'
-[INFO] 11:48:01.875 Load active rules
-[INFO] 11:48:02.134 Load active rules (done) | time=259ms
-[INFO] 11:48:02.139 Load analysis cache
-[INFO] 11:48:02.156 Load analysis cache (2.8 kB) | time=17ms
-[INFO] 11:48:02.209 Preprocessing files...
-[INFO] 11:48:02.309 2 languages detected in 57 preprocessed files (done) | time=99ms
-[INFO] 11:48:02.309 0 files ignored because of scm ignore settings
-[INFO] 11:48:02.310 Loading plugins for detected languages
-[INFO] 11:48:02.311 Load/download plugins
-[INFO] 11:48:02.431 Load/download plugins (done) | time=120ms
-[INFO] 11:48:02.517 Load project repositories
-[INFO] 11:48:02.601 Load project repositories (done) | time=84ms
-[INFO] 11:48:02.620 Indexing files...
-[INFO] 11:48:02.621 Project configuration:
-[INFO] 11:48:02.630 57 files indexed (done) | time=9ms
-[INFO] 11:48:02.631 Quality profile for java: Sonar way
-[INFO] 11:48:02.631 Quality profile for xml: Sonar way
-[INFO] 11:48:02.631 ------------- Run sensors on module tasklist
-[INFO] 11:48:02.673 Load metrics repository
-[INFO] 11:48:02.694 Load metrics repository (done) | time=21ms
-[INFO] 11:48:03.319 Sensor JavaSensor [java]
-[INFO] 11:48:03.321 Configured Java source version (sonar.java.source): 21, preview features enabled (sonar.java.enablePreview): false
-[INFO] 11:48:03.347 Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
-[INFO] 11:48:03.348 Using ECJ batch to parse 51 Main java source files with batch size 500 KB.
-[INFO] 11:48:03.598 Starting batch processing.
-[INFO] 11:48:04.041 The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
-[INFO] 11:48:05.473 100% analyzed
-[INFO] 11:48:05.473 Batch processing: Done.
-[INFO] 11:48:05.483 Did not optimize analysis for any files, performed a full analysis for all 51 files.
-[WARNING] 11:48:05.486 Unresolved imports/types have been detected during analysis. Enable DEBUG mode to see them.
-[WARNING] 11:48:05.486 Use of preview features have been detected during analysis. Enable DEBUG mode to see them.
-[INFO] 11:48:05.487 Using ECJ batch to parse 5 Test java source files with batch size 500 KB.
-[INFO] 11:48:05.492 Starting batch processing.
-[INFO] 11:48:05.771 100% analyzed
-[INFO] 11:48:05.771 Batch processing: Done.
-[INFO] 11:48:05.780 Did not optimize analysis for any files, performed a full analysis for all 5 files.
-[INFO] 11:48:05.780 No "Generated" source files to scan.
-[INFO] 11:48:05.783 Sensor JavaSensor [java] (done) | time=2464ms
-[INFO] 11:48:05.783 Sensor SurefireSensor [java]
-[INFO] 11:48:05.784 parsing [/home/jenkins/agent/workspace/demo-tasklist/target/surefire-reports]
-[INFO] 11:48:05.847 Sensor SurefireSensor [java] (done) | time=64ms
-[INFO] 11:48:05.847 Sensor XML Sensor [xml]
-[INFO] 11:48:05.851 1 source file to be analyzed
-[INFO] 11:48:05.981 1/1 source file has been analyzed
-[INFO] 11:48:05.981 Sensor XML Sensor [xml] (done) | time=134ms
-[INFO] 11:48:05.981 Sensor JaCoCo XML Report Importer [jacoco]
-[INFO] 11:48:05.982 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
-[INFO] 11:48:05.985 Importing 1 report(s). Turn your logs in debug mode in order to see the exhaustive list.
-[INFO] 11:48:06.012 Sensor JaCoCo XML Report Importer [jacoco] (done) | time=31ms
-[INFO] 11:48:06.012 Sensor IaC Docker Sensor [iac]
-[INFO] 11:48:06.078 0 source files to be analyzed
-[INFO] 11:48:06.078 0/0 source files have been analyzed
-[INFO] 11:48:06.079 Sensor IaC Docker Sensor [iac] (done) | time=67ms
-[INFO] 11:48:06.079 Sensor Java Config Sensor [iac]
-[INFO] 11:48:06.090 0 source files to be analyzed
-[INFO] 11:48:06.091 0/0 source files have been analyzed
-[INFO] 11:48:06.091 Sensor Java Config Sensor [iac] (done) | time=12ms
-[INFO] 11:48:06.091 Sensor TextAndSecretsSensor [text]
-[INFO] 11:48:06.100 Available processors: 32
-[INFO] 11:48:06.101 Using 32 threads for analysis.
-[INFO] 11:48:06.397 Start fetching files for the text and secrets analysis
-[INFO] 11:48:06.402 Using JGit to retrieve untracked files
-[INFO] 11:48:09.550 Retrieving language associated files and files included via "sonar.text.inclusions" that are tracked by git
-[INFO] 11:48:09.551 Starting the text and secrets analysis
-[INFO] 11:48:09.553 57 source files to be analyzed for the text and secrets analysis
-[INFO] 11:48:09.655 57/57 source files have been analyzed for the text and secrets analysis
-[INFO] 11:48:09.659 Sensor TextAndSecretsSensor [text] (done) | time=3568ms
-[INFO] 11:48:09.662 ------------- Run sensors on project
-[INFO] 11:48:09.774 Sensor JavaProjectSensor [java]
-[INFO] 11:48:09.775 Sensor JavaProjectSensor [java] (done) | time=1ms
-[INFO] 11:48:09.775 Sensor Zero Coverage Sensor
-[INFO] 11:48:09.776 Sensor Zero Coverage Sensor (done) | time=1ms
-[INFO] 11:48:09.776 Sensor Java CPD Block Indexer
-[INFO] 11:48:09.805 Sensor Java CPD Block Indexer (done) | time=29ms
-[INFO] 11:48:09.805 ------------- Gather SCA dependencies on project
-[INFO] 11:48:09.808 Dependency analysis skipped
-[INFO] 11:48:09.818 CPD Executor 28 files had no CPD blocks
-[INFO] 11:48:09.818 CPD Executor Calculating CPD for 23 files
-[INFO] 11:48:09.826 CPD Executor CPD calculation finished (done) | time=8ms
-[INFO] 11:48:09.830 SCM revision ID '58fc87073b69b41cbef30d00c2b6fea274393dd3'
-[INFO] 11:48:09.894 Analysis report generated in 61ms, dir size=439.9 kB
-[INFO] 11:48:09.944 Analysis report compressed in 49ms, zip size=153.9 kB
-[INFO] 11:48:10.030 Analysis report uploaded in 86ms
-[INFO] 11:48:10.031 ANALYSIS SUCCESSFUL, you can find the results at: http://sonar-sonarqube.sonarqube.svc.cluster.local:9000/dashboard?id=tasklist
-[INFO] 11:48:10.031 Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
-[INFO] 11:48:10.031 More about the report processing at http://sonar-sonarqube.sonarqube.svc.cluster.local:9000/api/ce/task?id=33c4b6df-9047-44fc-84b1-6091bee18d22
-[INFO] 11:48:10.041 Analysis total time: 8.572 s
+[WARNING] 08:11:45.650 Using an unspecified version instead of an explicit plugin version may introduce breaking analysis changes at an unwanted time. It is highly recommended to use an explicit version, e.g. 'org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121'.
+[INFO] 08:11:45.657 Java 21.0.8 Eclipse Adoptium (64-bit)
+[INFO] 08:11:45.657 Linux 6.16.8-200.fc42.x86_64 (amd64)
+[INFO] 08:11:45.795 User cache: /root/.sonar/cache
+[INFO] 08:11:46.095 Communicating with SonarQube Server 25.8.0.112029
+[INFO] 08:11:46.109 Default locale: "en_US", source code encoding: "UTF-8"
+[INFO] 08:11:46.709 Load global settings
+[INFO] 08:11:46.791 Load global settings (done) | time=83ms
+[INFO] 08:11:46.809 Server id: A705BF94-AZk9AkQp47l5vLj4kDGE
+[INFO] 08:11:46.821 Loading required plugins
+[INFO] 08:11:46.822 Load plugins index
+[INFO] 08:11:46.872 Load plugins index (done) | time=49ms
+[INFO] 08:11:46.872 Load/download plugins
+[INFO] 08:11:47.076 Load/download plugins (done) | time=204ms
+[INFO] 08:11:47.317 Process project properties
+[INFO] 08:11:47.329 Process project properties (done) | time=12ms
+[INFO] 08:11:47.338 Project key: tasklist
+[INFO] 08:11:47.338 Base dir: /home/jenkins/agent/workspace/demo-tasklist
+[INFO] 08:11:47.338 Working dir: /home/jenkins/agent/workspace/demo-tasklist/target/sonar
+[INFO] 08:11:47.344 Load project settings for component key: 'tasklist'
+[INFO] 08:11:47.362 Load project settings for component key: 'tasklist' (done) | time=18ms
+[INFO] 08:11:47.388 Load quality profiles
+[INFO] 08:11:47.437 Load quality profiles (done) | time=49ms
+[INFO] 08:11:47.448 Auto-configuring with CI 'Jenkins'
+[INFO] 08:11:47.478 Load active rules
+[INFO] 08:11:47.804 Load active rules (done) | time=326ms
+[INFO] 08:11:47.809 Load analysis cache
+[INFO] 08:11:47.854 Load analysis cache (2.8 kB) | time=44ms
+[INFO] 08:11:47.914 Preprocessing files...
+[INFO] 08:11:48.014 2 languages detected in 57 preprocessed files (done) | time=100ms
+[INFO] 08:11:48.015 0 files ignored because of scm ignore settings
+[INFO] 08:11:48.016 Loading plugins for detected languages
+[INFO] 08:11:48.017 Load/download plugins
+[INFO] 08:11:48.126 Load/download plugins (done) | time=109ms
+[INFO] 08:11:48.207 Load project repositories
+[INFO] 08:11:48.330 Load project repositories (done) | time=123ms
+[INFO] 08:11:48.343 Indexing files...
+[INFO] 08:11:48.344 Project configuration:
+[INFO] 08:11:48.352 57 files indexed (done) | time=8ms
+[INFO] 08:11:48.353 Quality profile for java: Sonar way
+[INFO] 08:11:48.353 Quality profile for xml: Sonar way
+[INFO] 08:11:48.353 ------------- Run sensors on module tasklist
+[INFO] 08:11:48.390 Load metrics repository
+[INFO] 08:11:48.410 Load metrics repository (done) | time=20ms
+[INFO] 08:11:48.946 Sensor JavaSensor [java]
+[INFO] 08:11:48.949 Configured Java source version (sonar.java.source): 21, preview features enabled (sonar.java.enablePreview): false
+[INFO] 08:11:48.975 Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
+[INFO] 08:11:48.976 Using ECJ batch to parse 51 Main java source files with batch size 500 KB.
+[INFO] 08:11:49.233 Starting batch processing.
+[INFO] 08:11:49.689 The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
+[INFO] 08:11:50.917 100% analyzed
+[INFO] 08:11:50.917 Batch processing: Done.
+[INFO] 08:11:50.923 Did not optimize analysis for any files, performed a full analysis for all 51 files.
+[WARNING] 08:11:50.925 Unresolved imports/types have been detected during analysis. Enable DEBUG mode to see them.
+[WARNING] 08:11:50.925 Use of preview features have been detected during analysis. Enable DEBUG mode to see them.
+[INFO] 08:11:50.925 Using ECJ batch to parse 5 Test java source files with batch size 500 KB.
+[INFO] 08:11:50.930 Starting batch processing.
+[INFO] 08:11:51.154 100% analyzed
+[INFO] 08:11:51.154 Batch processing: Done.
+[INFO] 08:11:51.162 Did not optimize analysis for any files, performed a full analysis for all 5 files.
+[INFO] 08:11:51.162 No "Generated" source files to scan.
+[INFO] 08:11:51.164 Sensor JavaSensor [java] (done) | time=2218ms
+[INFO] 08:11:51.164 Sensor SurefireSensor [java]
+[INFO] 08:11:51.165 parsing [/home/jenkins/agent/workspace/demo-tasklist/target/surefire-reports]
+[INFO] 08:11:51.216 Sensor SurefireSensor [java] (done) | time=52ms
+[INFO] 08:11:51.216 Sensor XML Sensor [xml]
+[INFO] 08:11:51.221 1 source file to be analyzed
+[INFO] 08:11:51.350 1/1 source file has been analyzed
+[INFO] 08:11:51.350 Sensor XML Sensor [xml] (done) | time=134ms
+[INFO] 08:11:51.350 Sensor JaCoCo XML Report Importer [jacoco]
+[INFO] 08:11:51.351 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[INFO] 08:11:51.353 Importing 1 report(s). Turn your logs in debug mode in order to see the exhaustive list.
+[INFO] 08:11:51.378 Sensor JaCoCo XML Report Importer [jacoco] (done) | time=27ms
+[INFO] 08:11:51.378 Sensor IaC Docker Sensor [iac]
+[INFO] 08:11:51.437 0 source files to be analyzed
+[INFO] 08:11:51.438 0/0 source files have been analyzed
+[INFO] 08:11:51.438 Sensor IaC Docker Sensor [iac] (done) | time=60ms
+[INFO] 08:11:51.438 Sensor Java Config Sensor [iac]
+[INFO] 08:11:51.451 0 source files to be analyzed
+[INFO] 08:11:51.451 0/0 source files have been analyzed
+[INFO] 08:11:51.451 Sensor Java Config Sensor [iac] (done) | time=13ms
+[INFO] 08:11:51.451 Sensor TextAndSecretsSensor [text]
+[INFO] 08:11:51.458 Available processors: 32
+[INFO] 08:11:51.459 Using 32 threads for analysis.
+[INFO] 08:11:51.753 Start fetching files for the text and secrets analysis
+[INFO] 08:11:51.757 Using JGit to retrieve untracked files
+[INFO] 08:11:54.893 Retrieving language associated files and files included via "sonar.text.inclusions" that are tracked by git
+[INFO] 08:11:54.894 Starting the text and secrets analysis
+[INFO] 08:11:54.896 57 source files to be analyzed for the text and secrets analysis
+[INFO] 08:11:55.003 57/57 source files have been analyzed for the text and secrets analysis
+[INFO] 08:11:55.006 Sensor TextAndSecretsSensor [text] (done) | time=3555ms
+[INFO] 08:11:55.008 ------------- Run sensors on project
+[INFO] 08:11:55.111 Sensor JavaProjectSensor [java]
+[INFO] 08:11:55.112 Sensor JavaProjectSensor [java] (done) | time=1ms
+[INFO] 08:11:55.112 Sensor Zero Coverage Sensor
+[INFO] 08:11:55.113 Sensor Zero Coverage Sensor (done) | time=1ms
+[INFO] 08:11:55.113 Sensor Java CPD Block Indexer
+[INFO] 08:11:55.144 Sensor Java CPD Block Indexer (done) | time=31ms
+[INFO] 08:11:55.144 ------------- Gather SCA dependencies on project
+[INFO] 08:11:55.148 Dependency analysis skipped
+[INFO] 08:11:55.159 CPD Executor 28 files had no CPD blocks
+[INFO] 08:11:55.159 CPD Executor Calculating CPD for 23 files
+[INFO] 08:11:55.164 CPD Executor CPD calculation finished (done) | time=5ms
+[INFO] 08:11:55.168 SCM revision ID '3c95daf23ed425e612ad9543b1debae6a9589fc0'
+[INFO] 08:11:55.236 Analysis report generated in 65ms, dir size=441.3 kB
+[INFO] 08:11:55.282 Analysis report compressed in 46ms, zip size=154.3 kB
+[INFO] 08:11:55.363 Analysis report uploaded in 81ms
+[INFO] 08:11:55.364 ANALYSIS SUCCESSFUL, you can find the results at: http://sonar-sonarqube.sonarqube.svc.cluster.local:9000/dashboard?id=tasklist
+[INFO] 08:11:55.364 Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+[INFO] 08:11:55.364 More about the report processing at http://sonar-sonarqube.sonarqube.svc.cluster.local:9000/api/ce/task?id=bda28577-dd97-474e-b9a5-3e7a2b110042
+[INFO] 08:11:55.374 Analysis total time: 8.265 s
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  11.379 s
-[INFO] Finished at: 2025-09-24T11:48:10Z
+[INFO] Total time:  10.972 s
+[INFO] Finished at: 2025-09-29T08:11:55Z
 [INFO] ------------------------------------------------------------------------
 [Pipeline] }
 [Pipeline] // withCredentials
@@ -492,7 +494,7 @@ OS name: "linux", version: "6.15.10-200.fc42.x86_64", arch: "amd64", family: "un
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] stage
-[Pipeline] { (docker)
+[Pipeline] { (docker build)
 [Pipeline] container
 [Pipeline] {
 [Pipeline] withCredentials
@@ -534,12 +536,12 @@ Client:
     Path:     /usr/local/libexec/docker/cli-plugins/docker-compose
 
 Server:
- Containers: 27
-  Running: 2
+ Containers: 22
+  Running: 1
   Paused: 0
-  Stopped: 25
- Images: 212
- Server Version: 28.3.3
+  Stopped: 21
+ Images: 223
+ Server Version: 28.4.0
  Storage Driver: overlay2
   Backing Filesystem: extfs
   Supports d_type: true
@@ -557,14 +559,14 @@ Server:
  Runtimes: io.containerd.runc.v2 runc
  Default Runtime: runc
  Init Binary: docker-init
- containerd version: 05044ec0a9a75232cad458027ca83437aae3f4da
- runc version: v1.2.5-0-g59923ef
+ containerd version: b98a3aace656320842a23f4a392a33f46af97866
+ runc version: v1.3.0-0-g4ca628d1
  init version: de40ad0
  Security Options:
   seccomp
    Profile: builtin
   cgroupns
- Kernel Version: 6.15.10-200.fc42.x86_64
+ Kernel Version: 6.16.8-200.fc42.x86_64
  Operating System: Fedora Linux 42 (Workstation Edition)
  OSType: linux
  Architecture: x86_64
@@ -576,9 +578,9 @@ Server:
  Debug Mode: false
  Experimental: false
  Insecure Registries:
+  registry.stx
   docker.stx
   registry.gitlab.stx
-  registry.stx
   ::1/128
   127.0.0.0/8
  Live Restore Enabled: false
@@ -586,9 +588,6 @@ Server:
 WARNING: bridge-nf-call-iptables is disabled
 WARNING: bridge-nf-call-ip6tables is disabled
 [Pipeline] sh
-Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
-		 Affected argument(s) used the following variable(s): [REGISTRY_PASS]
-		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
 + echo ****
 + docker login registry.stx -u admin --password-stdin
 WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
@@ -596,8 +595,165 @@ Configure a credential helper to remove this warning. See
 https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 
 Login Succeeded
+[Pipeline] sh
++ docker build -t registry.stx/tasklist:0.0.1 .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 162B done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.stx/eclipse-temurin:21.0.7_6-jre-ubi9-minimal
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [1/2] FROM docker.stx/eclipse-temurin:21.0.7_6-jre-ubi9-minimal@sha256:be37f4233c179ca1f40e9c8d7974df1b6676b9599b375389b8e15e0218e34083
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 101.50MB 0.3s done
+#5 DONE 0.4s
+
+#4 [1/2] FROM docker.stx/eclipse-temurin:21.0.7_6-jre-ubi9-minimal@sha256:be37f4233c179ca1f40e9c8d7974df1b6676b9599b375389b8e15e0218e34083
+#4 CACHED
+
+#6 [2/2] COPY target/tasklist*.jar /app.jar
+#6 DONE 0.2s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.3s done
+#7 writing image sha256:bc1aec7a7dd4b0153dda0e368e2bb535feaa84b986b968c4547ac5a4217860ef 0.1s done
+#7 naming to registry.stx/tasklist:0.0.1 0.0s done
+#7 DONE 0.5s
+WARNING: buildx: failed to read current commit information with git rev-parse --is-inside-work-tree
 [Pipeline] }
 [Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (trivy security scanning)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] sh
++ pwd
+/home/jenkins/agent/workspace/demo-tasklist
+[Pipeline] sh
++ ls -a
+.
+..
+.env.example
+.git
+.gitignore
+Dockerfile
+Jenkinsfile
+Makefile
+README.md
+docker-compose.yaml
+docs
+maven-settings.xml
+pom.xml
+src
+style.xml
+target
+[Pipeline] sh
++ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /root/.trivy-cache:/root/.cache/ docker.stx/aquasec/trivy:0.66.0 image --scanners vuln --severity HIGH,CRITICAL --exit-code 0 --format table registry.stx/tasklist:0.0.1
+2025-09-29T08:12:05Z	INFO	[vuln] Vulnerability scanning is enabled
+2025-09-29T08:12:08Z	INFO	Detected OS	family="redhat" version="9.6"
+2025-09-29T08:12:08Z	INFO	[redhat] Detecting RHEL/CentOS vulnerabilities...	os_version="9" pkg_num=146
+2025-09-29T08:12:08Z	INFO	Number of language-specific files	num=1
+2025-09-29T08:12:08Z	INFO	[jar] Detecting vulnerabilities...
+2025-09-29T08:12:08Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/v0.66/docs/scanner/vulnerability#severity-selection for details.
+2025-09-29T08:12:08Z	INFO	Table result includes only package filenames. Use '--format json' option to get the full path to the package file.
+[Pipeline] sh
++ cat trivy-output.txt
+
+Report Summary
+
+┌──────────────────────────────────────────┬────────┬─────────────────┐
+│                  Target                  │  Type  │ Vulnerabilities │
+├──────────────────────────────────────────┼────────┼─────────────────┤
+│ registry.stx/tasklist:0.0.1 (redhat 9.6) │ redhat │        5        │
+├──────────────────────────────────────────┼────────┼─────────────────┤
+│ app.jar                                  │  jar   │        2        │
+└──────────────────────────────────────────┴────────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+registry.stx/tasklist:0.0.1 (redhat 9.6)
+========================================
+Total: 5 (HIGH: 5, CRITICAL: 0)
+
+┌────────────┬────────────────┬──────────┬──────────┬───────────────────┬─────────────────┬────────────────────────────────────────────────────────────┐
+│  Library   │ Vulnerability  │ Severity │  Status  │ Installed Version │  Fixed Version  │                           Title                            │
+├────────────┼────────────────┼──────────┼──────────┼───────────────────┼─────────────────┼────────────────────────────────────────────────────────────┤
+│ expat      │ CVE-2025-59375 │ HIGH     │ affected │ 2.5.0-5.el9_6     │                 │ expat: libexpat in Expat allows attackers to trigger large │
+│            │                │          │          │                   │                 │ dynamic memory allocations...                              │
+│            │                │          │          │                   │                 │ https://avd.aquasec.com/nvd/cve-2025-59375                 │
+├────────────┼────────────────┤          ├──────────┼───────────────────┼─────────────────┼────────────────────────────────────────────────────────────┤
+│ libarchive │ CVE-2025-5914  │          │ fixed    │ 3.5.3-5.el9_6     │ 3.5.3-6.el9_6   │ libarchive: Double free at                                 │
+│            │                │          │          │                   │                 │ archive_read_format_rar_seek_data() in                     │
+│            │                │          │          │                   │                 │ archive_read_support_format_rar.c                          │
+│            │                │          │          │                   │                 │ https://avd.aquasec.com/nvd/cve-2025-5914                  │
+├────────────┼────────────────┤          │          ├───────────────────┼─────────────────┼────────────────────────────────────────────────────────────┤
+│ libxml2    │ CVE-2025-7425  │          │          │ 2.9.13-10.el9_6   │ 2.9.13-11.el9_6 │ libxslt: Heap Use-After-Free in libxslt caused by atype    │
+│            │                │          │          │                   │                 │ corruption in xmlAttrPtr                                   │
+│            │                │          │          │                   │                 │ https://avd.aquasec.com/nvd/cve-2025-7425                  │
+├────────────┼────────────────┤          │          ├───────────────────┼─────────────────┼────────────────────────────────────────────────────────────┤
+│ pam        │ CVE-2025-6020  │          │          │ 1.5.1-25.el9_6    │ 1.5.1-26.el9_6  │ linux-pam: Linux-pam directory Traversal                   │
+│            │                │          │          │                   │                 │ https://avd.aquasec.com/nvd/cve-2025-6020                  │
+│            ├────────────────┤          │          │                   │                 ├────────────────────────────────────────────────────────────┤
+│            │ CVE-2025-8941  │          │          │                   │                 │ linux-pam: Incomplete fix for CVE-2025-6020                │
+│            │                │          │          │                   │                 │ https://avd.aquasec.com/nvd/cve-2025-8941                  │
+└────────────┴────────────────┴──────────┴──────────┴───────────────────┴─────────────────┴────────────────────────────────────────────────────────────┘
+
+Java (jar)
+==========
+Total: 2 (HIGH: 2, CRITICAL: 0)
+
+┌─────────────────────────────────────────────────────────────┬────────────────┬──────────┬────────┬───────────────────┬───────────────┬──────────────────────────────────────────────────────────────┐
+│                           Library                           │ Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │                            Title                             │
+├─────────────────────────────────────────────────────────────┼────────────────┼──────────┼────────┼───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ org.springframework.security:spring-security-core (app.jar) │ CVE-2025-41248 │ HIGH     │ fixed  │ 6.5.3             │ 6.4.10, 6.5.4 │ org.springframework.security/spring-security-core: Spring    │
+│                                                             │                │          │        │                   │               │ Security authorization bypass                                │
+│                                                             │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-41248                   │
+├─────────────────────────────────────────────────────────────┼────────────────┤          │        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ org.springframework:spring-core (app.jar)                   │ CVE-2025-41249 │          │        │ 6.2.10            │ 6.2.11        │ org.springframework/spring-core: Spring Framework Annotation │
+│                                                             │                │          │        │                   │               │ Detection Vulnerability                                      │
+│                                                             │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-41249                   │
+└─────────────────────────────────────────────────────────────┴────────────────┴──────────┴────────┴───────────────────┴───────────────┴──────────────────────────────────────────────────────────────┘
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (docker push)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] sh
++ docker push registry.stx/tasklist:0.0.1
+The push refers to repository [registry.stx/tasklist]
+1a8d871952c2: Preparing
+38bbe8e2760b: Preparing
+0690ec1ca6c3: Preparing
+30a08a01fd9c: Preparing
+7c318dac0e31: Preparing
+9d26cc12af44: Preparing
+9d26cc12af44: Waiting
+38bbe8e2760b: Layer already exists
+0690ec1ca6c3: Layer already exists
+30a08a01fd9c: Layer already exists
+7c318dac0e31: Layer already exists
+9d26cc12af44: Layer already exists
+1a8d871952c2: Pushed
+0.0.1: digest: sha256:711cef13d05e7c82798421c6f69b38059b9fe09c6d581e4a55b5f21e7d074ad8 size: 1580
 [Pipeline] }
 [Pipeline] // container
 [Pipeline] }
@@ -630,6 +786,7 @@ pom.xml
 src
 style.xml
 target
+trivy-output.txt
 [Pipeline] sh
 + helm version
 version.BuildInfo{Version:"v3.12.2", GitCommit:"1e210a2c8cc5117d1055bfaa5d40f51bbc2e345e", GitTreeState:"clean", GoVersion:"go1.20.5"}
