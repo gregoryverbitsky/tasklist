@@ -303,6 +303,26 @@
                     </to>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>12.1.6</version>
+                <configuration>
+                    <dataDirectory>/tmp/owasp</dataDirectory>
+                    <formats>
+                        <!-- we need both HTML (for humans) and JSON (for machines) to make the report useful in Sonar -->
+                        <format>html</format>
+                        <format>json</format>
+                    </formats>
+                </configuration>
+                <!--executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions-->
+            </plugin>
         </plugins>
     </build>
 

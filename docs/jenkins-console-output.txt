@@ -4,29 +4,28 @@ Obtained Jenkinsfile from git http://gitlab-webservice-default.gitlab.svc.cluste
 [Pipeline] podTemplate
 [Pipeline] {
 [Pipeline] node
-Created Pod: kubernetes build/demo-tasklist-38-mzsb5-50594-k1mbb
-[PodInfo] build/demo-tasklist-38-mzsb5-50594-k1mbb
+[PodInfo] build/demo-tasklist-44-cf54p-l8ddh-5q2lx
 	Container [docker] waiting [ContainerCreating] No message
 	Container [helm-kubectl] waiting [ContainerCreating] No message
 	Container [jnlp] waiting [ContainerCreating] No message
 	Container [maven] waiting [ContainerCreating] No message
-	Container [trivy] waiting [ContainerCreating] No message
-	Pod [Pending][ContainersNotReady] containers with unready status: [maven docker trivy helm-kubectl jnlp]
-Agent demo-tasklist-38-mzsb5-50594-k1mbb is provisioned from template demo-tasklist_38-mzsb5-50594
+	Pod [Pending][ContainersNotReady] containers with unready status: [maven docker helm-kubectl jnlp]
+Created Pod: kubernetes build/demo-tasklist-44-cf54p-l8ddh-5q2lx
+Agent demo-tasklist-44-cf54p-l8ddh-5q2lx is provisioned from template demo-tasklist_44-cf54p-l8ddh
 ---
 apiVersion: "v1"
 kind: "Pod"
 metadata:
   annotations:
-    kubernetes.jenkins.io/last-refresh: "1759133474896"
-    buildUrl: "http://jenkins.build.svc.cluster.local:8080/job/demo-tasklist/38/"
-    runUrl: "job/demo-tasklist/38/"
+    kubernetes.jenkins.io/last-refresh: "1759236498355"
+    buildUrl: "http://jenkins.build.svc.cluster.local:8080/job/demo-tasklist/44/"
+    runUrl: "job/demo-tasklist/44/"
   labels:
     jenkins/jenkins-jenkins-agent: "true"
-    jenkins/label-digest: "ef239e538d5b550f8dbcbdc5f33bd8a46b0d0bd5"
-    jenkins/label: "demo-tasklist_38-mzsb5"
+    jenkins/label-digest: "2478a378d4e486f086a2c58b47cf3782c8b069cd"
+    jenkins/label: "demo-tasklist_44-cf54p"
     kubernetes.jenkins.io/controller: "http___jenkins_build_svc_cluster_local_8080x"
-  name: "demo-tasklist-38-mzsb5-50594-k1mbb"
+  name: "demo-tasklist-44-cf54p-l8ddh-5q2lx"
   namespace: "build"
 spec:
   containers:
@@ -56,18 +55,6 @@ spec:
       readOnly: false
   - command:
     - "cat"
-    image: "docker.stx/aquasec/trivy:0.66.0"
-    imagePullPolicy: "IfNotPresent"
-    name: "trivy"
-    tty: true
-    volumeMounts:
-    - mountPath: "/root/.trivy-cache"
-      name: "trivy"
-    - mountPath: "/home/jenkins/agent"
-      name: "workspace-volume"
-      readOnly: false
-  - command:
-    - "cat"
     image: "docker.stx/alpine/k8s:1.24.16"
     imagePullPolicy: "IfNotPresent"
     name: "helm-kubectl"
@@ -82,11 +69,11 @@ spec:
     - name: "JENKINS_TUNNEL"
       value: "jenkins-agent.build.svc.cluster.local:50000"
     - name: "JENKINS_AGENT_NAME"
-      value: "demo-tasklist-38-mzsb5-50594-k1mbb"
+      value: "demo-tasklist-44-cf54p-l8ddh-5q2lx"
     - name: "REMOTING_OPTS"
       value: "-noReconnectAfter 1d"
     - name: "JENKINS_NAME"
-      value: "demo-tasklist-38-mzsb5-50594-k1mbb"
+      value: "demo-tasklist-44-cf54p-l8ddh-5q2lx"
     - name: "JENKINS_AGENT_WORKDIR"
       value: "/home/jenkins/agent"
     - name: "JENKINS_URL"
@@ -110,9 +97,6 @@ spec:
   - name: "maven"
     persistentVolumeClaim:
       claimName: "maven-repo-storage"
-  - name: "trivy"
-    persistentVolumeClaim:
-      claimName: "trivy-cache"
   - emptyDir:
       medium: ""
     name: "workspace-volume"
@@ -120,7 +104,7 @@ spec:
       path: "/var/run/docker.sock"
     name: "docker"
 
-Running on demo-tasklist-38-mzsb5-50594-k1mbb in /home/jenkins/agent/workspace/demo-tasklist
+Running on demo-tasklist-44-cf54p-l8ddh-5q2lx in /home/jenkins/agent/workspace/demo-tasklist
 [Pipeline] {
 [Pipeline] stage
 [Pipeline] { (Declarative: Checkout SCM)
@@ -130,20 +114,20 @@ using credential developWithPassword
 Cloning the remote Git repository
 Cloning repository http://gitlab-webservice-default.gitlab.svc.cluster.local:8181/demo/tasklist.git
  > git init /home/jenkins/agent/workspace/demo-tasklist # timeout=10
-Avoid second fetch
-Checking out Revision 3c95daf23ed425e612ad9543b1debae6a9589fc0 (refs/remotes/origin/spotless-maven-plugin)
-Commit message: "docker push"
 Fetching upstream changes from http://gitlab-webservice-default.gitlab.svc.cluster.local:8181/demo/tasklist.git
  > git --version # timeout=10
  > git --version # 'git version 2.39.5'
 using GIT_ASKPASS to set credentials developWithPassword
  > git fetch --tags --force --progress -- http://gitlab-webservice-default.gitlab.svc.cluster.local:8181/demo/tasklist.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision f659baaa0aff03192220041d63bf6535d251dac3 (refs/remotes/origin/spotless-maven-plugin)
+Commit message: "Jenkinsfile update"
  > git config remote.origin.url http://gitlab-webservice-default.gitlab.svc.cluster.local:8181/demo/tasklist.git # timeout=10
  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
  > git rev-parse refs/remotes/origin/spotless-maven-plugin^{commit} # timeout=10
  > git config core.sparsecheckout # timeout=10
- > git checkout -f 3c95daf23ed425e612ad9543b1debae6a9589fc0 # timeout=10
- > git rev-list --no-walk 70c60086d92b771935f198df50adb5d32064af72 # timeout=10
+ > git checkout -f f659baaa0aff03192220041d63bf6535d251dac3 # timeout=10
+ > git rev-list --no-walk befa3a6ebe4c252dad078f45796decdd6f3ff229 # timeout=10
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] withEnv
@@ -151,8 +135,8 @@ using GIT_ASKPASS to set credentials developWithPassword
 [Pipeline] withEnv
 [Pipeline] {
 [Pipeline] stage
-[Pipeline] { (Init)
-[Pipeline] script
+[Pipeline] { (maven package)
+[Pipeline] container
 [Pipeline] {
 [Pipeline] configFileProvider
 provisioning config files...
@@ -177,34 +161,7 @@ README.md
 docker-compose.yaml
 docs
 maven-settings.xml
-pom.xml
-src
-style.xml
-[Pipeline] }
-[Pipeline] // script
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (maven)
-[Pipeline] container
-[Pipeline] {
-[Pipeline] sh
-+ pwd
-/home/jenkins/agent/workspace/demo-tasklist
-[Pipeline] sh
-+ ls -a
-.
-..
-.env.example
-.git
-.gitignore
-Dockerfile
-Jenkinsfile
-Makefile
-README.md
-docker-compose.yaml
-docs
-maven-settings.xml
+owast.md
 pom.xml
 src
 style.xml
@@ -274,23 +231,23 @@ OS name: "linux", version: "6.16.8-200.fc42.x86_64", arch: "amd64", family: "uni
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running de.demo.tasklist.service.impl.AuthServiceImplTest
-08:11:34.260 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.AuthServiceImplTest]: AuthServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:48:36.627 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.AuthServiceImplTest]: AuthServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
 Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.7/byte-buddy-agent-1.17.7.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
 WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
 WARNING: Dynamic loading of agents will be disallowed by default in a future release
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.499 s -- in de.demo.tasklist.service.impl.AuthServiceImplTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.994 s -- in de.demo.tasklist.service.impl.AuthServiceImplTest
 [INFO] Running de.demo.tasklist.service.impl.UserServiceImplTest
-08:11:37.561 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.UserServiceImplTest]: UserServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.200 s -- in de.demo.tasklist.service.impl.UserServiceImplTest
+12:48:39.397 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.UserServiceImplTest]: UserServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.172 s -- in de.demo.tasklist.service.impl.UserServiceImplTest
 [INFO] Running de.demo.tasklist.service.impl.MailServiceImplTest
-08:11:37.761 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.MailServiceImplTest]: MailServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.343 s -- in de.demo.tasklist.service.impl.MailServiceImplTest
+12:48:39.571 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.MailServiceImplTest]: MailServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.255 s -- in de.demo.tasklist.service.impl.MailServiceImplTest
 [INFO] Running de.demo.tasklist.service.impl.TaskServiceImplTest
-08:11:38.109 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.TaskServiceImplTest]: TaskServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.116 s -- in de.demo.tasklist.service.impl.TaskServiceImplTest
+12:48:39.829 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.demo.tasklist.service.impl.TaskServiceImplTest]: TaskServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.157 s -- in de.demo.tasklist.service.impl.TaskServiceImplTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -312,15 +269,15 @@ WARNING: Dynamic loading of agents will be disallowed by default in a future rel
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  12.157 s
-[INFO] Finished at: 2025-09-29T08:11:39Z
+[INFO] Total time:  12.006 s
+[INFO] Finished at: 2025-09-30T12:48:40Z
 [INFO] ------------------------------------------------------------------------
 [Pipeline] }
 [Pipeline] // container
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] stage
-[Pipeline] { (sonar)
+[Pipeline] { (sonar:sonar)
 [Pipeline] container
 [Pipeline] {
 [Pipeline] withCredentials
@@ -343,6 +300,7 @@ README.md
 docker-compose.yaml
 docs
 maven-settings.xml
+owast.md
 pom.xml
 src
 style.xml
@@ -370,122 +328,122 @@ OS name: "linux", version: "6.16.8-200.fc42.x86_64", arch: "amd64", family: "uni
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- sonar:4.0.0.4121:sonar (default-cli) @ tasklist ---
-[WARNING] 08:11:45.650 Using an unspecified version instead of an explicit plugin version may introduce breaking analysis changes at an unwanted time. It is highly recommended to use an explicit version, e.g. 'org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121'.
-[INFO] 08:11:45.657 Java 21.0.8 Eclipse Adoptium (64-bit)
-[INFO] 08:11:45.657 Linux 6.16.8-200.fc42.x86_64 (amd64)
-[INFO] 08:11:45.795 User cache: /root/.sonar/cache
-[INFO] 08:11:46.095 Communicating with SonarQube Server 25.8.0.112029
-[INFO] 08:11:46.109 Default locale: "en_US", source code encoding: "UTF-8"
-[INFO] 08:11:46.709 Load global settings
-[INFO] 08:11:46.791 Load global settings (done) | time=83ms
-[INFO] 08:11:46.809 Server id: A705BF94-AZk9AkQp47l5vLj4kDGE
-[INFO] 08:11:46.821 Loading required plugins
-[INFO] 08:11:46.822 Load plugins index
-[INFO] 08:11:46.872 Load plugins index (done) | time=49ms
-[INFO] 08:11:46.872 Load/download plugins
-[INFO] 08:11:47.076 Load/download plugins (done) | time=204ms
-[INFO] 08:11:47.317 Process project properties
-[INFO] 08:11:47.329 Process project properties (done) | time=12ms
-[INFO] 08:11:47.338 Project key: tasklist
-[INFO] 08:11:47.338 Base dir: /home/jenkins/agent/workspace/demo-tasklist
-[INFO] 08:11:47.338 Working dir: /home/jenkins/agent/workspace/demo-tasklist/target/sonar
-[INFO] 08:11:47.344 Load project settings for component key: 'tasklist'
-[INFO] 08:11:47.362 Load project settings for component key: 'tasklist' (done) | time=18ms
-[INFO] 08:11:47.388 Load quality profiles
-[INFO] 08:11:47.437 Load quality profiles (done) | time=49ms
-[INFO] 08:11:47.448 Auto-configuring with CI 'Jenkins'
-[INFO] 08:11:47.478 Load active rules
-[INFO] 08:11:47.804 Load active rules (done) | time=326ms
-[INFO] 08:11:47.809 Load analysis cache
-[INFO] 08:11:47.854 Load analysis cache (2.8 kB) | time=44ms
-[INFO] 08:11:47.914 Preprocessing files...
-[INFO] 08:11:48.014 2 languages detected in 57 preprocessed files (done) | time=100ms
-[INFO] 08:11:48.015 0 files ignored because of scm ignore settings
-[INFO] 08:11:48.016 Loading plugins for detected languages
-[INFO] 08:11:48.017 Load/download plugins
-[INFO] 08:11:48.126 Load/download plugins (done) | time=109ms
-[INFO] 08:11:48.207 Load project repositories
-[INFO] 08:11:48.330 Load project repositories (done) | time=123ms
-[INFO] 08:11:48.343 Indexing files...
-[INFO] 08:11:48.344 Project configuration:
-[INFO] 08:11:48.352 57 files indexed (done) | time=8ms
-[INFO] 08:11:48.353 Quality profile for java: Sonar way
-[INFO] 08:11:48.353 Quality profile for xml: Sonar way
-[INFO] 08:11:48.353 ------------- Run sensors on module tasklist
-[INFO] 08:11:48.390 Load metrics repository
-[INFO] 08:11:48.410 Load metrics repository (done) | time=20ms
-[INFO] 08:11:48.946 Sensor JavaSensor [java]
-[INFO] 08:11:48.949 Configured Java source version (sonar.java.source): 21, preview features enabled (sonar.java.enablePreview): false
-[INFO] 08:11:48.975 Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
-[INFO] 08:11:48.976 Using ECJ batch to parse 51 Main java source files with batch size 500 KB.
-[INFO] 08:11:49.233 Starting batch processing.
-[INFO] 08:11:49.689 The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
-[INFO] 08:11:50.917 100% analyzed
-[INFO] 08:11:50.917 Batch processing: Done.
-[INFO] 08:11:50.923 Did not optimize analysis for any files, performed a full analysis for all 51 files.
-[WARNING] 08:11:50.925 Unresolved imports/types have been detected during analysis. Enable DEBUG mode to see them.
-[WARNING] 08:11:50.925 Use of preview features have been detected during analysis. Enable DEBUG mode to see them.
-[INFO] 08:11:50.925 Using ECJ batch to parse 5 Test java source files with batch size 500 KB.
-[INFO] 08:11:50.930 Starting batch processing.
-[INFO] 08:11:51.154 100% analyzed
-[INFO] 08:11:51.154 Batch processing: Done.
-[INFO] 08:11:51.162 Did not optimize analysis for any files, performed a full analysis for all 5 files.
-[INFO] 08:11:51.162 No "Generated" source files to scan.
-[INFO] 08:11:51.164 Sensor JavaSensor [java] (done) | time=2218ms
-[INFO] 08:11:51.164 Sensor SurefireSensor [java]
-[INFO] 08:11:51.165 parsing [/home/jenkins/agent/workspace/demo-tasklist/target/surefire-reports]
-[INFO] 08:11:51.216 Sensor SurefireSensor [java] (done) | time=52ms
-[INFO] 08:11:51.216 Sensor XML Sensor [xml]
-[INFO] 08:11:51.221 1 source file to be analyzed
-[INFO] 08:11:51.350 1/1 source file has been analyzed
-[INFO] 08:11:51.350 Sensor XML Sensor [xml] (done) | time=134ms
-[INFO] 08:11:51.350 Sensor JaCoCo XML Report Importer [jacoco]
-[INFO] 08:11:51.351 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
-[INFO] 08:11:51.353 Importing 1 report(s). Turn your logs in debug mode in order to see the exhaustive list.
-[INFO] 08:11:51.378 Sensor JaCoCo XML Report Importer [jacoco] (done) | time=27ms
-[INFO] 08:11:51.378 Sensor IaC Docker Sensor [iac]
-[INFO] 08:11:51.437 0 source files to be analyzed
-[INFO] 08:11:51.438 0/0 source files have been analyzed
-[INFO] 08:11:51.438 Sensor IaC Docker Sensor [iac] (done) | time=60ms
-[INFO] 08:11:51.438 Sensor Java Config Sensor [iac]
-[INFO] 08:11:51.451 0 source files to be analyzed
-[INFO] 08:11:51.451 0/0 source files have been analyzed
-[INFO] 08:11:51.451 Sensor Java Config Sensor [iac] (done) | time=13ms
-[INFO] 08:11:51.451 Sensor TextAndSecretsSensor [text]
-[INFO] 08:11:51.458 Available processors: 32
-[INFO] 08:11:51.459 Using 32 threads for analysis.
-[INFO] 08:11:51.753 Start fetching files for the text and secrets analysis
-[INFO] 08:11:51.757 Using JGit to retrieve untracked files
-[INFO] 08:11:54.893 Retrieving language associated files and files included via "sonar.text.inclusions" that are tracked by git
-[INFO] 08:11:54.894 Starting the text and secrets analysis
-[INFO] 08:11:54.896 57 source files to be analyzed for the text and secrets analysis
-[INFO] 08:11:55.003 57/57 source files have been analyzed for the text and secrets analysis
-[INFO] 08:11:55.006 Sensor TextAndSecretsSensor [text] (done) | time=3555ms
-[INFO] 08:11:55.008 ------------- Run sensors on project
-[INFO] 08:11:55.111 Sensor JavaProjectSensor [java]
-[INFO] 08:11:55.112 Sensor JavaProjectSensor [java] (done) | time=1ms
-[INFO] 08:11:55.112 Sensor Zero Coverage Sensor
-[INFO] 08:11:55.113 Sensor Zero Coverage Sensor (done) | time=1ms
-[INFO] 08:11:55.113 Sensor Java CPD Block Indexer
-[INFO] 08:11:55.144 Sensor Java CPD Block Indexer (done) | time=31ms
-[INFO] 08:11:55.144 ------------- Gather SCA dependencies on project
-[INFO] 08:11:55.148 Dependency analysis skipped
-[INFO] 08:11:55.159 CPD Executor 28 files had no CPD blocks
-[INFO] 08:11:55.159 CPD Executor Calculating CPD for 23 files
-[INFO] 08:11:55.164 CPD Executor CPD calculation finished (done) | time=5ms
-[INFO] 08:11:55.168 SCM revision ID '3c95daf23ed425e612ad9543b1debae6a9589fc0'
-[INFO] 08:11:55.236 Analysis report generated in 65ms, dir size=441.3 kB
-[INFO] 08:11:55.282 Analysis report compressed in 46ms, zip size=154.3 kB
-[INFO] 08:11:55.363 Analysis report uploaded in 81ms
-[INFO] 08:11:55.364 ANALYSIS SUCCESSFUL, you can find the results at: http://sonar-sonarqube.sonarqube.svc.cluster.local:9000/dashboard?id=tasklist
-[INFO] 08:11:55.364 Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
-[INFO] 08:11:55.364 More about the report processing at http://sonar-sonarqube.sonarqube.svc.cluster.local:9000/api/ce/task?id=bda28577-dd97-474e-b9a5-3e7a2b110042
-[INFO] 08:11:55.374 Analysis total time: 8.265 s
+[WARNING] 12:48:47.513 Using an unspecified version instead of an explicit plugin version may introduce breaking analysis changes at an unwanted time. It is highly recommended to use an explicit version, e.g. 'org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121'.
+[INFO] 12:48:47.521 Java 21.0.8 Eclipse Adoptium (64-bit)
+[INFO] 12:48:47.521 Linux 6.16.8-200.fc42.x86_64 (amd64)
+[INFO] 12:48:47.686 User cache: /root/.sonar/cache
+[INFO] 12:48:47.974 Communicating with SonarQube Server 25.8.0.112029
+[INFO] 12:48:47.989 Default locale: "en_US", source code encoding: "UTF-8"
+[INFO] 12:48:48.612 Load global settings
+[INFO] 12:48:48.681 Load global settings (done) | time=70ms
+[INFO] 12:48:48.697 Server id: A705BF94-AZk9AkQp47l5vLj4kDGE
+[INFO] 12:48:48.713 Loading required plugins
+[INFO] 12:48:48.714 Load plugins index
+[INFO] 12:48:48.746 Load plugins index (done) | time=32ms
+[INFO] 12:48:48.746 Load/download plugins
+[INFO] 12:48:48.903 Load/download plugins (done) | time=157ms
+[INFO] 12:48:49.149 Process project properties
+[INFO] 12:48:49.160 Process project properties (done) | time=11ms
+[INFO] 12:48:49.169 Project key: tasklist
+[INFO] 12:48:49.170 Base dir: /home/jenkins/agent/workspace/demo-tasklist
+[INFO] 12:48:49.170 Working dir: /home/jenkins/agent/workspace/demo-tasklist/target/sonar
+[INFO] 12:48:49.177 Load project settings for component key: 'tasklist'
+[INFO] 12:48:49.195 Load project settings for component key: 'tasklist' (done) | time=18ms
+[INFO] 12:48:49.214 Load quality profiles
+[INFO] 12:48:49.254 Load quality profiles (done) | time=40ms
+[INFO] 12:48:49.265 Auto-configuring with CI 'Jenkins'
+[INFO] 12:48:49.290 Load active rules
+[INFO] 12:48:49.613 Load active rules (done) | time=323ms
+[INFO] 12:48:49.618 Load analysis cache
+[INFO] 12:48:49.635 Load analysis cache (2.8 kB) | time=17ms
+[INFO] 12:48:49.703 Preprocessing files...
+[INFO] 12:48:49.845 2 languages detected in 57 preprocessed files (done) | time=142ms
+[INFO] 12:48:49.846 0 files ignored because of scm ignore settings
+[INFO] 12:48:49.847 Loading plugins for detected languages
+[INFO] 12:48:49.848 Load/download plugins
+[INFO] 12:48:50.021 Load/download plugins (done) | time=173ms
+[INFO] 12:48:50.134 Load project repositories
+[INFO] 12:48:50.224 Load project repositories (done) | time=90ms
+[INFO] 12:48:50.239 Indexing files...
+[INFO] 12:48:50.239 Project configuration:
+[INFO] 12:48:50.248 57 files indexed (done) | time=9ms
+[INFO] 12:48:50.249 Quality profile for java: Sonar way
+[INFO] 12:48:50.249 Quality profile for xml: Sonar way
+[INFO] 12:48:50.249 ------------- Run sensors on module tasklist
+[INFO] 12:48:50.289 Load metrics repository
+[INFO] 12:48:50.305 Load metrics repository (done) | time=16ms
+[INFO] 12:48:50.889 Sensor JavaSensor [java]
+[INFO] 12:48:50.894 Configured Java source version (sonar.java.source): 21, preview features enabled (sonar.java.enablePreview): false
+[INFO] 12:48:50.919 Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
+[INFO] 12:48:50.920 Using ECJ batch to parse 51 Main java source files with batch size 500 KB.
+[INFO] 12:48:51.158 Starting batch processing.
+[INFO] 12:48:51.626 The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
+[INFO] 12:48:53.017 100% analyzed
+[INFO] 12:48:53.017 Batch processing: Done.
+[INFO] 12:48:53.022 Did not optimize analysis for any files, performed a full analysis for all 51 files.
+[WARNING] 12:48:53.025 Unresolved imports/types have been detected during analysis. Enable DEBUG mode to see them.
+[WARNING] 12:48:53.025 Use of preview features have been detected during analysis. Enable DEBUG mode to see them.
+[INFO] 12:48:53.026 Using ECJ batch to parse 5 Test java source files with batch size 500 KB.
+[INFO] 12:48:53.034 Starting batch processing.
+[INFO] 12:48:53.286 100% analyzed
+[INFO] 12:48:53.287 Batch processing: Done.
+[INFO] 12:48:53.292 Did not optimize analysis for any files, performed a full analysis for all 5 files.
+[INFO] 12:48:53.292 No "Generated" source files to scan.
+[INFO] 12:48:53.294 Sensor JavaSensor [java] (done) | time=2405ms
+[INFO] 12:48:53.295 Sensor SurefireSensor [java]
+[INFO] 12:48:53.296 parsing [/home/jenkins/agent/workspace/demo-tasklist/target/surefire-reports]
+[INFO] 12:48:53.344 Sensor SurefireSensor [java] (done) | time=49ms
+[INFO] 12:48:53.345 Sensor XML Sensor [xml]
+[INFO] 12:48:53.349 1 source file to be analyzed
+[INFO] 12:48:53.472 1/1 source file has been analyzed
+[INFO] 12:48:53.472 Sensor XML Sensor [xml] (done) | time=127ms
+[INFO] 12:48:53.473 Sensor JaCoCo XML Report Importer [jacoco]
+[INFO] 12:48:53.473 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[INFO] 12:48:53.475 Importing 1 report(s). Turn your logs in debug mode in order to see the exhaustive list.
+[INFO] 12:48:53.502 Sensor JaCoCo XML Report Importer [jacoco] (done) | time=30ms
+[INFO] 12:48:53.502 Sensor IaC Docker Sensor [iac]
+[INFO] 12:48:53.565 0 source files to be analyzed
+[INFO] 12:48:53.566 0/0 source files have been analyzed
+[INFO] 12:48:53.566 Sensor IaC Docker Sensor [iac] (done) | time=64ms
+[INFO] 12:48:53.566 Sensor Java Config Sensor [iac]
+[INFO] 12:48:53.577 0 source files to be analyzed
+[INFO] 12:48:53.578 0/0 source files have been analyzed
+[INFO] 12:48:53.578 Sensor Java Config Sensor [iac] (done) | time=12ms
+[INFO] 12:48:53.578 Sensor TextAndSecretsSensor [text]
+[INFO] 12:48:53.584 Available processors: 32
+[INFO] 12:48:53.584 Using 32 threads for analysis.
+[INFO] 12:48:53.852 Start fetching files for the text and secrets analysis
+[INFO] 12:48:53.856 Using JGit to retrieve untracked files
+[INFO] 12:48:57.012 Retrieving language associated files and files included via "sonar.text.inclusions" that are tracked by git
+[INFO] 12:48:57.013 Starting the text and secrets analysis
+[INFO] 12:48:57.014 57 source files to be analyzed for the text and secrets analysis
+[INFO] 12:48:57.086 57/57 source files have been analyzed for the text and secrets analysis
+[INFO] 12:48:57.090 Sensor TextAndSecretsSensor [text] (done) | time=3512ms
+[INFO] 12:48:57.095 ------------- Run sensors on project
+[INFO] 12:48:57.204 Sensor JavaProjectSensor [java]
+[INFO] 12:48:57.206 Sensor JavaProjectSensor [java] (done) | time=2ms
+[INFO] 12:48:57.206 Sensor Zero Coverage Sensor
+[INFO] 12:48:57.207 Sensor Zero Coverage Sensor (done) | time=1ms
+[INFO] 12:48:57.207 Sensor Java CPD Block Indexer
+[INFO] 12:48:57.237 Sensor Java CPD Block Indexer (done) | time=30ms
+[INFO] 12:48:57.237 ------------- Gather SCA dependencies on project
+[INFO] 12:48:57.241 Dependency analysis skipped
+[INFO] 12:48:57.251 CPD Executor 28 files had no CPD blocks
+[INFO] 12:48:57.251 CPD Executor Calculating CPD for 23 files
+[INFO] 12:48:57.259 CPD Executor CPD calculation finished (done) | time=8ms
+[INFO] 12:48:57.263 SCM revision ID 'f659baaa0aff03192220041d63bf6535d251dac3'
+[INFO] 12:48:57.325 Analysis report generated in 58ms, dir size=442.7 kB
+[INFO] 12:48:57.377 Analysis report compressed in 51ms, zip size=154.6 kB
+[INFO] 12:48:57.469 Analysis report uploaded in 92ms
+[INFO] 12:48:57.472 ANALYSIS SUCCESSFUL, you can find the results at: http://sonar-sonarqube.sonarqube.svc.cluster.local:9000/dashboard?id=tasklist
+[INFO] 12:48:57.472 Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+[INFO] 12:48:57.472 More about the report processing at http://sonar-sonarqube.sonarqube.svc.cluster.local:9000/api/ce/task?id=1237b31e-50eb-47a6-a084-3aed9efbe7b8
+[INFO] 12:48:57.485 Analysis total time: 8.543 s
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  10.972 s
-[INFO] Finished at: 2025-09-29T08:11:55Z
+[INFO] Total time:  11.156 s
+[INFO] Finished at: 2025-09-30T12:48:57Z
 [INFO] ------------------------------------------------------------------------
 [Pipeline] }
 [Pipeline] // withCredentials
@@ -517,6 +475,7 @@ README.md
 docker-compose.yaml
 docs
 maven-settings.xml
+owast.md
 pom.xml
 src
 style.xml
@@ -540,7 +499,7 @@ Server:
   Running: 1
   Paused: 0
   Stopped: 21
- Images: 223
+ Images: 227
  Server Version: 28.4.0
  Storage Driver: overlay2
   Backing Filesystem: extfs
@@ -578,9 +537,9 @@ Server:
  Debug Mode: false
  Experimental: false
  Insecure Registries:
+  registry.gitlab.stx
   registry.stx
   docker.stx
-  registry.gitlab.stx
   ::1/128
   127.0.0.0/8
  Live Restore Enabled: false
@@ -626,9 +585,9 @@ Login Succeeded
 #7 exporting to image
 #7 exporting layers
 #7 exporting layers 0.3s done
-#7 writing image sha256:bc1aec7a7dd4b0153dda0e368e2bb535feaa84b986b968c4547ac5a4217860ef 0.1s done
+#7 writing image sha256:349c0763701e012dabf98faf5afaa26e80495d09e8ea7a1dd80f2e6c09a51215 0.0s done
 #7 naming to registry.stx/tasklist:0.0.1 0.0s done
-#7 DONE 0.5s
+#7 DONE 0.4s
 WARNING: buildx: failed to read current commit information with git rev-parse --is-inside-work-tree
 [Pipeline] }
 [Pipeline] // withCredentials
@@ -657,19 +616,26 @@ README.md
 docker-compose.yaml
 docs
 maven-settings.xml
+owast.md
 pom.xml
 src
 style.xml
 target
 [Pipeline] sh
-+ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /root/.trivy-cache:/root/.cache/ docker.stx/aquasec/trivy:0.66.0 image --scanners vuln --severity HIGH,CRITICAL --exit-code 0 --format table registry.stx/tasklist:0.0.1
-2025-09-29T08:12:05Z	INFO	[vuln] Vulnerability scanning is enabled
-2025-09-29T08:12:08Z	INFO	Detected OS	family="redhat" version="9.6"
-2025-09-29T08:12:08Z	INFO	[redhat] Detecting RHEL/CentOS vulnerabilities...	os_version="9" pkg_num=146
-2025-09-29T08:12:08Z	INFO	Number of language-specific files	num=1
-2025-09-29T08:12:08Z	INFO	[jar] Detecting vulnerabilities...
-2025-09-29T08:12:08Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/v0.66/docs/scanner/vulnerability#severity-selection for details.
-2025-09-29T08:12:08Z	INFO	Table result includes only package filenames. Use '--format json' option to get the full path to the package file.
++ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /root/.trivy-cache:/root/.cache/ docker.stx/aquasec/trivy:0.66.0 image --scanners vuln --severity MEDIUM,HIGH,CRITICAL --exit-code 0 --format table registry.stx/tasklist:0.0.1
+2025-09-30T12:49:07Z	INFO	[vuln] Vulnerability scanning is enabled
+2025-09-30T12:49:10Z	INFO	Detected OS	family="redhat" version="9.6"
+2025-09-30T12:49:10Z	INFO	[redhat] Detecting RHEL/CentOS vulnerabilities...	os_version="9" pkg_num=146
+2025-09-30T12:49:10Z	INFO	Number of language-specific files	num=1
+2025-09-30T12:49:10Z	INFO	[jar] Detecting vulnerabilities...
+2025-09-30T12:49:10Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/v0.66/docs/scanner/vulnerability#severity-selection for details.
+2025-09-30T12:49:10Z	INFO	Table result includes only package filenames. Use '--format json' option to get the full path to the package file.
+
+📣 [34mNotices:[0m
+  - Version 0.67.0 of Trivy is now available, current version is 0.66.0
+
+To suppress version checks, run Trivy scans with the --skip-version-check flag
+
 [Pipeline] sh
 + cat trivy-output.txt
 
@@ -678,9 +644,9 @@ Report Summary
 ┌──────────────────────────────────────────┬────────┬─────────────────┐
 │                  Target                  │  Type  │ Vulnerabilities │
 ├──────────────────────────────────────────┼────────┼─────────────────┤
-│ registry.stx/tasklist:0.0.1 (redhat 9.6) │ redhat │        5        │
+│ registry.stx/tasklist:0.0.1 (redhat 9.6) │ redhat │       40        │
 ├──────────────────────────────────────────┼────────┼─────────────────┤
-│ app.jar                                  │  jar   │        2        │
+│ app.jar                                  │  jar   │        5        │
 └──────────────────────────────────────────┴────────┴─────────────────┘
 Legend:
 - '-': Not scanned
@@ -689,46 +655,178 @@ Legend:
 
 registry.stx/tasklist:0.0.1 (redhat 9.6)
 ========================================
-Total: 5 (HIGH: 5, CRITICAL: 0)
+Total: 40 (MEDIUM: 35, HIGH: 5, CRITICAL: 0)
 
-┌────────────┬────────────────┬──────────┬──────────┬───────────────────┬─────────────────┬────────────────────────────────────────────────────────────┐
-│  Library   │ Vulnerability  │ Severity │  Status  │ Installed Version │  Fixed Version  │                           Title                            │
-├────────────┼────────────────┼──────────┼──────────┼───────────────────┼─────────────────┼────────────────────────────────────────────────────────────┤
-│ expat      │ CVE-2025-59375 │ HIGH     │ affected │ 2.5.0-5.el9_6     │                 │ expat: libexpat in Expat allows attackers to trigger large │
-│            │                │          │          │                   │                 │ dynamic memory allocations...                              │
-│            │                │          │          │                   │                 │ https://avd.aquasec.com/nvd/cve-2025-59375                 │
-├────────────┼────────────────┤          ├──────────┼───────────────────┼─────────────────┼────────────────────────────────────────────────────────────┤
-│ libarchive │ CVE-2025-5914  │          │ fixed    │ 3.5.3-5.el9_6     │ 3.5.3-6.el9_6   │ libarchive: Double free at                                 │
-│            │                │          │          │                   │                 │ archive_read_format_rar_seek_data() in                     │
-│            │                │          │          │                   │                 │ archive_read_support_format_rar.c                          │
-│            │                │          │          │                   │                 │ https://avd.aquasec.com/nvd/cve-2025-5914                  │
-├────────────┼────────────────┤          │          ├───────────────────┼─────────────────┼────────────────────────────────────────────────────────────┤
-│ libxml2    │ CVE-2025-7425  │          │          │ 2.9.13-10.el9_6   │ 2.9.13-11.el9_6 │ libxslt: Heap Use-After-Free in libxslt caused by atype    │
-│            │                │          │          │                   │                 │ corruption in xmlAttrPtr                                   │
-│            │                │          │          │                   │                 │ https://avd.aquasec.com/nvd/cve-2025-7425                  │
-├────────────┼────────────────┤          │          ├───────────────────┼─────────────────┼────────────────────────────────────────────────────────────┤
-│ pam        │ CVE-2025-6020  │          │          │ 1.5.1-25.el9_6    │ 1.5.1-26.el9_6  │ linux-pam: Linux-pam directory Traversal                   │
-│            │                │          │          │                   │                 │ https://avd.aquasec.com/nvd/cve-2025-6020                  │
-│            ├────────────────┤          │          │                   │                 ├────────────────────────────────────────────────────────────┤
-│            │ CVE-2025-8941  │          │          │                   │                 │ linux-pam: Incomplete fix for CVE-2025-6020                │
-│            │                │          │          │                   │                 │ https://avd.aquasec.com/nvd/cve-2025-8941                  │
-└────────────┴────────────────┴──────────┴──────────┴───────────────────┴─────────────────┴────────────────────────────────────────────────────────────┘
+┌────────────────────────┬────────────────┬──────────┬──────────────┬───────────────────┬───────────────────┬──────────────────────────────────────────────────────────────┐
+│        Library         │ Vulnerability  │ Severity │    Status    │ Installed Version │   Fixed Version   │                            Title                             │
+├────────────────────────┼────────────────┼──────────┼──────────────┼───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ binutils               │ CVE-2021-20197 │ MEDIUM   │ affected     │ 2.35.2-63.el9     │                   │ binutils: Race window allows users to own arbitrary files    │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2021-20197                   │
+│                        ├────────────────┤          ├──────────────┤                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2021-45078 │          │ will_not_fix │                   │                   │ binutils: out-of-bounds write in stab_xcoff_builtin_type()   │
+│                        │                │          │              │                   │                   │ in stabs.c                                                   │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2021-45078                   │
+│                        ├────────────────┤          │              │                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2023-1579  │          │              │                   │                   │ binutils: Heap-buffer-overflow binutils-gdb/bfd/libbfd.c in  │
+│                        │                │          │              │                   │                   │ bfd_getl64                                                   │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2023-1579                    │
+│                        ├────────────────┤          ├──────────────┤                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-5245  │          │ affected     │                   │                   │ binutils: GNU Binutils objdump debug.c debug_type_samep      │
+│                        │                │          │              │                   │                   │ memory corruption                                            │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-5245                    │
+│                        ├────────────────┤          │              │                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-7545  │          │              │                   │                   │ binutils: Binutils: Heap Buffer Overflow                     │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-7545                    │
+│                        ├────────────────┤          │              │                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-7546  │          │              │                   │                   │ binutils: Binutils: Out-of-bounds Write Vulnerability        │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-7546                    │
+├────────────────────────┼────────────────┤          │              │                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│ binutils-gold          │ CVE-2021-20197 │          │              │                   │                   │ binutils: Race window allows users to own arbitrary files    │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2021-20197                   │
+│                        ├────────────────┤          ├──────────────┤                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2021-45078 │          │ will_not_fix │                   │                   │ binutils: out-of-bounds write in stab_xcoff_builtin_type()   │
+│                        │                │          │              │                   │                   │ in stabs.c                                                   │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2021-45078                   │
+│                        ├────────────────┤          │              │                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2023-1579  │          │              │                   │                   │ binutils: Heap-buffer-overflow binutils-gdb/bfd/libbfd.c in  │
+│                        │                │          │              │                   │                   │ bfd_getl64                                                   │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2023-1579                    │
+│                        ├────────────────┤          ├──────────────┤                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-5245  │          │ affected     │                   │                   │ binutils: GNU Binutils objdump debug.c debug_type_samep      │
+│                        │                │          │              │                   │                   │ memory corruption                                            │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-5245                    │
+│                        ├────────────────┤          │              │                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-7545  │          │              │                   │                   │ binutils: Binutils: Heap Buffer Overflow                     │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-7545                    │
+│                        ├────────────────┤          │              │                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-7546  │          │              │                   │                   │ binutils: Binutils: Out-of-bounds Write Vulnerability        │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-7546                    │
+├────────────────────────┼────────────────┤          │              ├───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ coreutils-single       │ CVE-2025-5278  │          │              │ 8.32-39.el9       │                   │ coreutils: Heap Buffer Under-Read in GNU Coreutils sort via  │
+│                        │                │          │              │                   │                   │ Key Specification                                            │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-5278                    │
+├────────────────────────┼────────────────┤          │              ├───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ curl-minimal           │ CVE-2025-9086  │          │              │ 7.76.1-31.el9     │                   │ curl: libcurl: Curl out of bounds read for cookie path       │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-9086                    │
+├────────────────────────┼────────────────┼──────────┤              ├───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ expat                  │ CVE-2025-59375 │ HIGH     │              │ 2.5.0-5.el9_6     │                   │ expat: libexpat in Expat allows attackers to trigger large   │
+│                        │                │          │              │                   │                   │ dynamic memory allocations...                                │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-59375                   │
+├────────────────────────┼────────────────┼──────────┼──────────────┼───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ glibc                  │ CVE-2025-8058  │ MEDIUM   │ fixed        │ 2.34-168.el9_6.20 │ 2.34-168.el9_6.23 │ glibc: Double free in glibc                                  │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-8058                    │
+├────────────────────────┤                │          │              │                   │                   │                                                              │
+│ glibc-common           │                │          │              │                   │                   │                                                              │
+│                        │                │          │              │                   │                   │                                                              │
+├────────────────────────┤                │          │              │                   │                   │                                                              │
+│ glibc-langpack-en      │                │          │              │                   │                   │                                                              │
+│                        │                │          │              │                   │                   │                                                              │
+├────────────────────────┤                │          │              │                   │                   │                                                              │
+│ glibc-minimal-langpack │                │          │              │                   │                   │                                                              │
+│                        │                │          │              │                   │                   │                                                              │
+├────────────────────────┼────────────────┤          │              ├───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ gnutls                 │ CVE-2025-32988 │          │              │ 3.8.3-6.el9       │ 3.8.3-6.el9_6.2   │ gnutls: Vulnerability in GnuTLS otherName SAN export         │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-32988                   │
+│                        ├────────────────┤          │              │                   │                   ├──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-32989 │          │              │                   │                   │ gnutls: Vulnerability in GnuTLS SCT extension parsing        │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-32989                   │
+│                        ├────────────────┤          │              │                   │                   ├──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-32990 │          │              │                   │                   │ gnutls: Vulnerability in GnuTLS certtool template parsing    │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-32990                   │
+│                        ├────────────────┤          │              │                   │                   ├──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-6395  │          │              │                   │                   │ gnutls: NULL pointer dereference in                          │
+│                        │                │          │              │                   │                   │ _gnutls_figure_common_ciphersuite()                          │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-6395                    │
+├────────────────────────┼────────────────┼──────────┤              ├───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ libarchive             │ CVE-2025-5914  │ HIGH     │              │ 3.5.3-5.el9_6     │ 3.5.3-6.el9_6     │ libarchive: Double free at                                   │
+│                        │                │          │              │                   │                   │ archive_read_format_rar_seek_data() in                       │
+│                        │                │          │              │                   │                   │ archive_read_support_format_rar.c                            │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-5914                    │
+│                        ├────────────────┼──────────┼──────────────┤                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2023-30571 │ MEDIUM   │ will_not_fix │                   │                   │ libarchive: Race condition in multi-threaded use of          │
+│                        │                │          │              │                   │                   │ archive_write_disk_header() on posix based systems...        │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2023-30571                   │
+├────────────────────────┼────────────────┤          ├──────────────┼───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ libcurl-minimal        │ CVE-2025-9086  │          │ affected     │ 7.76.1-31.el9     │                   │ curl: libcurl: Curl out of bounds read for cookie path       │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-9086                    │
+├────────────────────────┼────────────────┼──────────┼──────────────┼───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ libxml2                │ CVE-2025-7425  │ HIGH     │ fixed        │ 2.9.13-10.el9_6   │ 2.9.13-11.el9_6   │ libxslt: Heap Use-After-Free in libxslt caused by atype      │
+│                        │                │          │              │                   │                   │ corruption in xmlAttrPtr                                     │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-7425                    │
+│                        ├────────────────┼──────────┤              │                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-32414 │ MEDIUM   │              │                   │ 2.9.13-12.el9_6   │ libxml2: Out-of-Bounds Read in libxml2                       │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-32414                   │
+│                        ├────────────────┤          │              │                   │                   ├──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-32415 │          │              │                   │                   │ libxml2: Out-of-bounds Read in xmlSchemaIDCFillNodeTables    │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-32415                   │
+│                        ├────────────────┤          ├──────────────┤                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-9714  │          │ affected     │                   │                   │ libxslt: libxml2: Inifinite recursion at exsltDynMapFunction │
+│                        │                │          │              │                   │                   │ function in libexslt/dynamic.c                               │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-9714                    │
+├────────────────────────┼────────────────┼──────────┼──────────────┼───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ pam                    │ CVE-2025-6020  │ HIGH     │ fixed        │ 1.5.1-25.el9_6    │ 1.5.1-26.el9_6    │ linux-pam: Linux-pam directory Traversal                     │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-6020                    │
+│                        ├────────────────┤          │              │                   │                   ├──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-8941  │          │              │                   │                   │ linux-pam: Incomplete fix for CVE-2025-6020                  │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-8941                    │
+├────────────────────────┼────────────────┼──────────┼──────────────┼───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ systemd                │ CVE-2025-4598  │ MEDIUM   │ affected     │ 252-51.el9_6.1    │                   │ systemd-coredump: race condition that allows a local         │
+│                        │                │          │              │                   │                   │ attacker to crash a SUID...                                  │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-4598                    │
+├────────────────────────┤                │          │              │                   ├───────────────────┤                                                              │
+│ systemd-libs           │                │          │              │                   │                   │                                                              │
+│                        │                │          │              │                   │                   │                                                              │
+│                        │                │          │              │                   │                   │                                                              │
+├────────────────────────┤                │          │              │                   ├───────────────────┤                                                              │
+│ systemd-pam            │                │          │              │                   │                   │                                                              │
+│                        │                │          │              │                   │                   │                                                              │
+│                        │                │          │              │                   │                   │                                                              │
+├────────────────────────┤                │          │              │                   ├───────────────────┤                                                              │
+│ systemd-rpm-macros     │                │          │              │                   │                   │                                                              │
+│                        │                │          │              │                   │                   │                                                              │
+│                        │                │          │              │                   │                   │                                                              │
+├────────────────────────┼────────────────┤          ├──────────────┼───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ tar                    │ CVE-2005-2541  │          │ will_not_fix │ 2:1.34-7.el9      │                   │ tar: does not properly warn the user when extracting setuid  │
+│                        │                │          │              │                   │                   │ or setgid...                                                 │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2005-2541                    │
+│                        ├────────────────┤          ├──────────────┤                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2025-45582 │          │ affected     │                   │                   │ tar: Tar path traversal                                      │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2025-45582                   │
+├────────────────────────┼────────────────┤          │              ├───────────────────┼───────────────────┼──────────────────────────────────────────────────────────────┤
+│ wget                   │ CVE-2021-31879 │          │              │ 1.21.1-8.el9_4    │                   │ wget: authorization header disclosure on redirect            │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2021-31879                   │
+│                        ├────────────────┤          │              │                   ├───────────────────┼──────────────────────────────────────────────────────────────┤
+│                        │ CVE-2024-10524 │          │              │                   │                   │ wget: GNU Wget is vulnerable to an SSRF attack when          │
+│                        │                │          │              │                   │                   │ accessing partially-user-controlled...                       │
+│                        │                │          │              │                   │                   │ https://avd.aquasec.com/nvd/cve-2024-10524                   │
+└────────────────────────┴────────────────┴──────────┴──────────────┴───────────────────┴───────────────────┴──────────────────────────────────────────────────────────────┘
 
 Java (jar)
 ==========
-Total: 2 (HIGH: 2, CRITICAL: 0)
+Total: 5 (MEDIUM: 2, HIGH: 3, CRITICAL: 0)
 
-┌─────────────────────────────────────────────────────────────┬────────────────┬──────────┬────────┬───────────────────┬───────────────┬──────────────────────────────────────────────────────────────┐
-│                           Library                           │ Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │                            Title                             │
-├─────────────────────────────────────────────────────────────┼────────────────┼──────────┼────────┼───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
-│ org.springframework.security:spring-security-core (app.jar) │ CVE-2025-41248 │ HIGH     │ fixed  │ 6.5.3             │ 6.4.10, 6.5.4 │ org.springframework.security/spring-security-core: Spring    │
-│                                                             │                │          │        │                   │               │ Security authorization bypass                                │
-│                                                             │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-41248                   │
-├─────────────────────────────────────────────────────────────┼────────────────┤          │        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
-│ org.springframework:spring-core (app.jar)                   │ CVE-2025-41249 │          │        │ 6.2.10            │ 6.2.11        │ org.springframework/spring-core: Spring Framework Annotation │
-│                                                             │                │          │        │                   │               │ Detection Vulnerability                                      │
-│                                                             │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-41249                   │
-└─────────────────────────────────────────────────────────────┴────────────────┴──────────┴────────┴───────────────────┴───────────────┴──────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┬─────────────────────┬──────────┬────────┬───────────────────┬───────────────┬──────────────────────────────────────────────────────────────┐
+│                           Library                           │    Vulnerability    │ Severity │ Status │ Installed Version │ Fixed Version │                            Title                             │
+├─────────────────────────────────────────────────────────────┼─────────────────────┼──────────┼────────┼───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ io.minio:minio (app.jar)                                    │ GHSA-h7rh-xfpj-hpcm │ HIGH     │ fixed  │ 8.5.17            │ 8.6.0         │ MinIO Java Client XML Tag Value Substitution Vulnerability   │
+│                                                             │                     │          │        │                   │               │ https://github.com/advisories/GHSA-h7rh-xfpj-hpcm            │
+├─────────────────────────────────────────────────────────────┼─────────────────────┼──────────┤        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ io.netty:netty-codec (app.jar)                              │ CVE-2025-58057      │ MEDIUM   │        │ 4.1.124.Final     │ 4.1.125.Final │ netty-codec: netty-codec-compression: Netty's BrotliDecoder  │
+│                                                             │                     │          │        │                   │               │ is vulnerable to DoS via zip bomb style...                   │
+│                                                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-58057                   │
+├─────────────────────────────────────────────────────────────┼─────────────────────┤          │        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ org.apache.commons:commons-lang3 (app.jar)                  │ CVE-2025-48924      │          │        │ 3.17.0            │ 3.18.0        │ commons-lang/commons-lang: org.apache.commons/commons-lang3: │
+│                                                             │                     │          │        │                   │               │ Uncontrolled Recursion vulnerability in Apache Commons Lang  │
+│                                                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-48924                   │
+├─────────────────────────────────────────────────────────────┼─────────────────────┼──────────┤        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ org.springframework.security:spring-security-core (app.jar) │ CVE-2025-41248      │ HIGH     │        │ 6.5.3             │ 6.4.10, 6.5.4 │ org.springframework.security/spring-security-core: Spring    │
+│                                                             │                     │          │        │                   │               │ Security authorization bypass                                │
+│                                                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-41248                   │
+├─────────────────────────────────────────────────────────────┼─────────────────────┤          │        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
+│ org.springframework:spring-core (app.jar)                   │ CVE-2025-41249      │          │        │ 6.2.10            │ 6.2.11        │ org.springframework/spring-core: Spring Framework Annotation │
+│                                                             │                     │          │        │                   │               │ Detection Vulnerability                                      │
+│                                                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-41249                   │
+└─────────────────────────────────────────────────────────────┴─────────────────────┴──────────┴────────┴───────────────────┴───────────────┴──────────────────────────────────────────────────────────────┘
 [Pipeline] }
 [Pipeline] // container
 [Pipeline] }
@@ -740,20 +838,20 @@ Total: 2 (HIGH: 2, CRITICAL: 0)
 [Pipeline] sh
 + docker push registry.stx/tasklist:0.0.1
 The push refers to repository [registry.stx/tasklist]
-1a8d871952c2: Preparing
+a6e874b87762: Preparing
 38bbe8e2760b: Preparing
 0690ec1ca6c3: Preparing
 30a08a01fd9c: Preparing
 7c318dac0e31: Preparing
 9d26cc12af44: Preparing
 9d26cc12af44: Waiting
-38bbe8e2760b: Layer already exists
-0690ec1ca6c3: Layer already exists
-30a08a01fd9c: Layer already exists
 7c318dac0e31: Layer already exists
+0690ec1ca6c3: Layer already exists
+38bbe8e2760b: Layer already exists
+30a08a01fd9c: Layer already exists
 9d26cc12af44: Layer already exists
-1a8d871952c2: Pushed
-0.0.1: digest: sha256:711cef13d05e7c82798421c6f69b38059b9fe09c6d581e4a55b5f21e7d074ad8 size: 1580
+a6e874b87762: Pushed
+0.0.1: digest: sha256:217357fad0f49c2564ccda5abc92cdc4fb3bee6a1b43813258bfa9e21f49874e size: 1580
 [Pipeline] }
 [Pipeline] // container
 [Pipeline] }
@@ -782,6 +880,7 @@ README.md
 docker-compose.yaml
 docs
 maven-settings.xml
+owast.md
 pom.xml
 src
 style.xml
@@ -791,11 +890,11 @@ trivy-output.txt
 + helm version
 version.BuildInfo{Version:"v3.12.2", GitCommit:"1e210a2c8cc5117d1055bfaa5d40f51bbc2e345e", GitTreeState:"clean", GoVersion:"go1.20.5"}
 [Pipeline] sh
-+ kubectl version
-WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.  Use --output=yaml|json to get the full version.
-Client Version: version.Info{Major:"1", Minor:"24", GitVersion:"v1.24.16", GitCommit:"51e33fadff13065ae5518db94e84598293965939", GitTreeState:"clean", BuildDate:"2023-07-19T12:26:21Z", GoVersion:"go1.20.6", Compiler:"gc", Platform:"linux/amd64"}
++ kubectl version --short
+Flag --short has been deprecated, and will be removed in the future. The --short output will become the default.
+Client Version: v1.24.16
 Kustomize Version: v4.5.4
-Server Version: version.Info{Major:"1", Minor:"24", GitVersion:"v1.24.17", GitCommit:"22a9682c8fe855c321be75c5faacde343f909b04", GitTreeState:"clean", BuildDate:"2023-08-23T23:37:25Z", GoVersion:"go1.20.7", Compiler:"gc", Platform:"linux/amd64"}
+Server Version: v1.24.17
 [Pipeline] }
 [Pipeline] // withCredentials
 [Pipeline] }
